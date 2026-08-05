@@ -1,70 +1,106 @@
 {
-  "repo": "Landing-Pages-Websites/qbc-systems-landing",
-  "customer_id": "16ee8343-6dad-4978-987d-49a4f59ef473",
-  "customer_name": "QBC Systems, Inc.",
-  "primary_subdomain": "https://info.qbc.com",
-  "product": "TireServ — ERP software for tire & automotive wholesale distributors",
-  "claims": [
+  "repo": "Landing-Pages-Websites/spark-sleep-solutions-landing",
+  "customer_id": "4fd12f2b-4473-4d43-b021-72a3b0d6f558",
+  "customer_name": "Spark Sleep Solutions",
+  "primary_subdomain": "https://explore.sparksleep.com",
+  "notes": "Every testimonial is verbatim and every stat is used exactly as provided in the authoritative build brief. Nothing on the page is invented. No aggregate star rating or review count is published in a citable form, so none appears. The Sunnyvale street address could not be recovered and is intentionally omitted.",
+  "stats": [
     {
-      "claim": "48 years building software exclusively for tire and automotive wholesale distributors",
-      "source_url": "task spec: Atlas task 7641bdba input_data.content_requests ('48 years in business, purpose-built for tire distribution') + MEGA ads strategy email (max.lester@gomega.ai / Lindsay intake, 2026-07-02, §5 Creative Strategy: 'Authority and longevity — 48 years purpose-built for tire and wholesale distribution')",
-      "corroboration": "Customer memory (customer_memories, QBC): 'Founded: 1978' → 2026 − 1978 = 48 years.",
-      "verified": true,
-      "note": "Client-provided/spec-derived authority stat. qbc.com's aging site states 'over 30 years' in older boilerplate; the current, client-confirmed figure per the 2026 strategy intake is 48 years (founded 1978). If the client prefers the conservative site figure, this is a one-word swap — flagged in escalations."
-    },
-    {
-      "claim": "Purpose-built ERP for tire distribution — not a generic ERP adapted after the fact",
-      "source_url": "https://www.qbc.com/erp-software-solutions/tireserv/ ('Distribution ERP Software Designed Exclusively for Tire and Automotive Supply Distributors, Wholesalers, Retail Stores, and Warehouses')",
+      "claim": "Board-Certified — DABDSM & ASBA (dual diplomate: Dr. Srujal H. Shah, DDS)",
+      "source_url": "https://sparksleep.com/reviews/",
       "verified": true
     },
     {
-      "claim": "Cloud-based, browser-only access (nothing to install)",
-      "source_url": "https://www.qbc.com/erp-software-solutions/tireserv/ ('TireServ is a cloud based Tire distribution software application package... Accessible anytime, anywhere, this user friendly Cloud based application only requires a web browser for complete access.')",
+      "claim": "5,000+ patients treated across the practice",
+      "source_url": "https://sparksleep.com/treatments/oral-devices/",
       "verified": true
     },
     {
-      "claim": "Full ERP stack in one system: POS, inventory management, purchasing, AR, AP, GL, and reporting",
-      "source_url": "https://www.qbc.com/erp-software-solutions/tireserv/ ('Fully Integrated Accounting, Ecommerce, Point of Sale & Inventory Management') + MEGA strategy email §10 Focus Areas + task input_data.content_requests",
+      "claim": "100+ FDA-approved custom oral appliances available",
+      "source_url": "https://sparksleep.com/treatments/oral-devices/",
       "verified": true
     },
     {
-      "claim": "Over 100 standard reports & inquiries",
-      "source_url": "https://www.qbc.com/erp-software-solutions/tireserv/ ('Over 100 Standard Reports & Inquiries')",
+      "claim": "6 Bay Area locations",
+      "source_url": "https://sparksleep.com/about/sleep-disorder-costs-insurance/",
       "verified": true
     },
     {
-      "claim": "Real-time integration with major wholesale tire platforms",
-      "source_url": "task spec: Atlas task 7641bdba input_data.content_requests + MEGA strategy email §5/§10 ('Real-time integration with major wholesale tire platforms'). Corroborated on qbc.com TireServ page: 'ATD Integration' + 'Integrated Tire Guide Pro'.",
+      "claim": "3-year warranty on most devices",
+      "source_url": "https://sparksleep.com/treatments/oral-devices/",
       "verified": true
     },
     {
-      "claim": "Mobile order entry and Telegram-based reporting",
-      "source_url": "task spec: Atlas task 7641bdba input_data.content_requests + MEGA strategy email §5 Creative Strategy ('mobile order entry, Telegram-based reporting')",
+      "claim": "Dr. Scott Stevinson, DDS — 40+ years of clinical experience",
+      "source_url": "https://sparksleep.com/",
       "verified": true
     },
     {
-      "claim": "Multi-company, multi-branch functionality; flexible inventory pricing rules; barcoding & data collection ready",
-      "source_url": "https://www.qbc.com/erp-software-solutions/tireserv/ (TireServ Features list)",
+      "claim": "Dr. Kajal Patel, DDS — 30+ years serving the San Francisco Bay Area",
+      "source_url": "https://sparksleep.com/",
       "verified": true
     },
     {
-      "claim": "Software with a Personal Touch (owner-operated, full-service software + hardware + IT + training)",
-      "source_url": "https://www.qbc.com/ (site tagline 'QBC Systems, Inc. Software with a Personal Touch') + customer_memory (full-service model)",
+      "claim": "San Jose — 6120 Hellyer Ave Ste 125, San Jose, CA 95138",
+      "source_url": "https://sparksleep.com/",
       "verified": true
     },
     {
-      "claim": "Based in Amherst, NY — 25 Hazelwood Dr, Amherst, NY 14228; phone routes to 716-691-5201",
-      "source_url": "https://www.qbc.com/ (footer contact block)",
+      "claim": "San Ramon — 1081 Market Place Ste 100, San Ramon, CA 94583",
+      "source_url": "https://sparksleep.com/",
+      "verified": true
+    },
+    {
+      "claim": "Sunnyvale — location named without a street address (not confirmed in research)",
+      "source_url": "https://sparksleep.com/",
+      "verified": false
+    },
+    {
+      "claim": "Insurer logos accepted: Blue Shield, Cigna, Tricare, Medicare, UniCare, UMR, Anthem, Kaiser Permanente",
+      "source_url": "https://sparksleep.com/about/sleep-disorder-costs-insurance/",
       "verified": true
     }
   ],
-  "testimonials": [],
-  "testimonials_note": "No customer testimonials or star ratings exist on qbc.com; none fabricated. Proof section uses factual credentials only.",
-  "images": [
-    { "file": "public/images/hero-warehouse.jpg", "subject": "tire distribution warehouse", "source": "AI-generated (mega image generate, nano_banana) — tire/automotive-distribution-specific, faces not focal per imagery rule", "verified": true },
-    { "file": "public/images/mobile-order.jpg", "subject": "hands-on-tablet mobile order entry in a distribution center", "source": "AI-generated (mega image generate)", "verified": true },
-    { "file": "public/images/loading-dock.jpg", "subject": "tire wholesale loading dock operations", "source": "AI-generated (mega image generate)", "verified": true },
-    { "file": "public/images/dashboard-laptop.jpg", "subject": "ERP software dashboard on a laptop at a distribution counter", "source": "AI-generated (mega image generate)", "verified": true },
-    { "file": "public/images/pos-counter.jpg", "subject": "tire distribution point-of-sale counter", "source": "AI-generated (mega image generate)", "verified": true }
+  "testimonials": [
+    {
+      "claim": "As a Physician I did a lot of research and investigating in seeking help with my sleep problems. I found the Doctors at Spark to be exceptional. I would continue with my care at Spark Sleep Solutions and would also referral my patients with the upmost confidence. — Terry L Franklin MD FAAFP, San Jose, CA · 5-star Yelp",
+      "source_url": "https://sparksleep.com/reviews/",
+      "verified": true
+    },
+    {
+      "claim": "I felt Dr. Shah was quite knowledgeable and appreciated that he listened to what I was saying about what I was doing for myself to help with sleep, and about the problems I'd had with the CPAP. He carefully explained about the device he was recommending and why that particular model. — Anonymous, San Ramon, CA · 5-star Healthgrades",
+      "source_url": "https://sparksleep.com/reviews/",
+      "verified": true
+    },
+    {
+      "claim": "Dr. Shah is very thorough, affable and smart. He was able to explain the various options for snoring and sleep apnea. The device I received works amazing. Snoring has disappeared! — Rob G, San Jose, CA · 5-star Google",
+      "source_url": "https://sparksleep.com/reviews/",
+      "verified": true
+    },
+    {
+      "claim": "Was sent here by my Kaiser med plan. From day one everyone was kind, helpful and understanding to my needs. Product I need is “top-drawer” and easy to use. Thanks crew. — Bev, San Jose, CA · 5-star Facebook",
+      "source_url": "https://sparksleep.com/reviews/",
+      "verified": true
+    },
+    {
+      "claim": "Friendly, knowledgeable staff that efficiently and professionally fitted my wife and me for sleep aides. Clearly explained each step of the way and the options available to us. — Gerald, San Ramon, CA · 4-star BirdEye",
+      "source_url": "https://sparksleep.com/reviews/",
+      "verified": true
+    },
+    {
+      "claim": "Had my initial consultation yesterday. The staff and Dr. Shah were wonderful. They made me feel very comfortable and answered all my questions. I would highly recommend them to anyone. Thanks! — Susan, San Jose, CA · 5-star Demandforce",
+      "source_url": "https://sparksleep.com/reviews/",
+      "verified": true
+    },
+    {
+      "claim": "Very helpful and pleasant staff. Dr. Shah explains the process each step of the way and is very easy to talk to about your issues with sleep apnea. Anyone considering an oral device should check out Dr. Shah. — William, San Jose, CA · 5-star Demandforce",
+      "source_url": "https://sparksleep.com/reviews/",
+      "verified": true
+    },
+    {
+      "claim": "Excellent experience. Staff- Kathy Angelina and Doctor Shah were attentive, patient and professional. Kathy was very. helpful and patient with registration. Angelina was attentive and supportive. Dr. Shah was professional and thorough. All questions were answered. Great experience. — John, San Jose, CA · 5-star Demandforce",
+      "source_url": "https://sparksleep.com/reviews/",
+      "verified": true
+    }
   ]
 }

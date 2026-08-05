@@ -1,60 +1,50 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { CTA, PHONE, PHONE_HREF } from "@/lib/content";
+import { CTA, PHONE, PHONE_HREF, REQUEST_ANCHOR } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
-export function Header() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
+// Solid white sticky header. The logo is a dark-ink wordmark, so the bar must
+// stay light at scroll=0 — never transparent over the dark hero. No nav links:
+// this is a single-goal landing page.
+export function Header(): React.ReactElement {
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md border-b border-[var(--color-border)] shadow-[0_1px_12px_-6px_rgba(10,22,40,0.25)]"
-          : "bg-white/80 backdrop-blur-sm border-b border-transparent"
-      }`}
-    >
-      <div className="mx-auto max-w-7xl px-5 md:px-8 flex items-center justify-between py-2.5 md:py-3">
+    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-white">
+      <div className="mx-auto flex max-w-[1320px] items-center justify-between gap-3 px-5 py-3 md:px-8">
         <Link
-          href={CTA.demoAnchor}
-          className="flex items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
-          aria-label="QBC Systems — TireServ home"
+          href="#hero"
+          aria-label="Spark Sleep Solutions home"
+          className="flex max-w-[190px] shrink-0 items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] md:max-w-none"
         >
           <Image
             src="/logo.png"
-            alt="QBC Systems"
-            width={249}
-            height={120}
+            alt="Spark Sleep Solutions"
+            width={732}
+            height={218}
             priority
-            className="h-12 md:h-14 w-auto object-contain"
+            className="h-9 w-auto object-contain md:h-11"
           />
         </Link>
 
-        <div className="flex items-center gap-2 md:gap-3">
+        <div className="flex items-center gap-2.5 md:gap-3">
           <a
             href={PHONE_HREF}
-            className="hidden sm:inline-flex items-center gap-2 border-[1.5px] border-[var(--color-primary)] text-[var(--color-primary)] hover:bg-[var(--color-surface)] transition-colors rounded-lg px-4 py-2 md:py-2.5 font-semibold text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
-            aria-label={`Call QBC Systems at ${PHONE}`}
+            className="inline-flex items-center gap-2 rounded-xl border-[1.5px] border-[var(--color-border)] bg-white px-3.5 py-2.5 text-[15px] font-semibold text-[var(--color-dark)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-link)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+            aria-label={`Call Spark Sleep Solutions at ${PHONE}`}
           >
-            <Icon name="phone" className="w-4 h-4" strokeWidth={0} fill="currentColor" />
-            <span>{PHONE}</span>
+            <Icon
+              name="phone"
+              className="h-4 w-4 text-[var(--color-primary)]"
+              strokeWidth={0}
+              fill="currentColor"
+            />
+            <span className="whitespace-nowrap">{PHONE}</span>
           </a>
           <a
-            href={CTA.demoAnchor}
-            className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] transition-colors rounded-lg px-4 md:px-5 py-2 md:py-2.5 font-semibold text-sm shadow-cta focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2"
+            href={REQUEST_ANCHOR}
+            className="hidden items-center gap-2 rounded-xl bg-[var(--color-primary)] px-5 py-2.5 text-[15px] font-semibold text-white shadow-cta transition-all hover:bg-[var(--color-primary-hover)] hover:shadow-cta-hover hover:-translate-y-px focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 sm:inline-flex"
           >
             {CTA.primary}
-            <Icon name="arrow" className="w-3.5 h-3.5" strokeWidth={2.5} />
+            <Icon name="arrow" className="h-3.5 w-3.5" strokeWidth={2.5} />
           </a>
         </div>
       </div>

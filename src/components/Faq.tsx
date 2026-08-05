@@ -3,20 +3,19 @@
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { DualCTA } from "@/components/DualCTA";
+import { Section } from "@/components/Section";
 import { Icon } from "@/components/icons";
 import { FAQ } from "@/lib/content";
 
-export function Faq() {
+export function Faq(): React.ReactElement {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative py-20 md:py-28 bg-white">
-      <div className="mx-auto max-w-4xl px-5 md:px-8">
+    <Section id="faq" band="light">
+      <div className="mx-auto max-w-3xl">
         <Reveal className="text-center">
-          <p className="eyebrow">Before you request a demo</p>
-          <h2 className="mt-3 font-display text-[2rem] md:text-4xl lg:text-[2.7rem] leading-[1.1] text-[var(--color-text)]">
-            Questions distributors ask us.
-          </h2>
+          <p className="eyebrow">Before you book</p>
+          <h2 className="h2 mt-3 text-[var(--color-text)]">Questions patients ask us</h2>
         </Reveal>
 
         <div className="mt-12 space-y-3">
@@ -25,7 +24,7 @@ export function Faq() {
             return (
               <Reveal key={item.q} delay={i * 40}>
                 <div
-                  className={`rounded-xl border transition-colors ${
+                  className={`rounded-2xl border transition-colors ${
                     isOpen
                       ? "border-[var(--color-primary)] bg-white shadow-card"
                       : "border-[var(--color-border)] bg-[var(--color-surface)] hover:border-[var(--color-primary)]/50"
@@ -36,9 +35,9 @@ export function Faq() {
                       type="button"
                       onClick={() => setOpen(isOpen ? null : i)}
                       aria-expanded={isOpen}
-                      className="flex w-full items-start justify-between gap-4 p-5 md:p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] rounded-xl"
+                      className="flex w-full items-start justify-between gap-4 rounded-2xl p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] md:p-6"
                     >
-                      <span className="font-display text-lg md:text-xl leading-snug text-[var(--color-text)]">
+                      <span className="font-display text-[19px] leading-snug text-[var(--color-text)] md:text-[21px]">
                         {item.q}
                       </span>
                       <Icon
@@ -56,7 +55,7 @@ export function Faq() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-5 md:px-6 pb-6 text-[15px] leading-relaxed text-[var(--color-muted)]">
+                      <p className="px-5 pb-6 text-[17px] leading-relaxed text-[var(--color-muted)] md:px-6">
                         {item.a}
                       </p>
                     </div>
@@ -68,9 +67,9 @@ export function Faq() {
         </div>
 
         <Reveal delay={120}>
-          <DualCTA align="center" />
+          <DualCTA />
         </Reveal>
       </div>
-    </section>
+    </Section>
   );
 }

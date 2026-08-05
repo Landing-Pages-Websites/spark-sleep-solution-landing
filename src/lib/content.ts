@@ -1,218 +1,335 @@
-// Site-wide content + config for QBC Systems — TireServ ERP demo LP.
+// Site-wide content + config for Spark Sleep Solutions — sleep apnea LP.
 // Single source of truth for copy, phone, form options, and tracking IDs.
+// Every fact here is verbatim from the client brief / sparksleep.com — invent nothing.
 
-export const PHONE = "(716) 691-5201";
-export const PHONE_HREF = "tel:7166915201";
+// CTM tracking number (forwards to the main office line). NEVER 408-490-0182 directly.
+export const PHONE = "(408) 608-0525";
+export const PHONE_HREF = "tel:4086080525";
+
+export const REQUEST_ANCHOR = "#request-appointment";
 
 export const CTA = {
-  primary: "Get a Free Demo",
-  secondary: "Call (716) 691-5201",
-  demoAnchor: "#demo",
+  primary: "Request Appointment",
+  secondary: "Get Started Today",
+  requestAnchor: REQUEST_ANCHOR,
 };
 
 export const BRAND = {
-  company: "QBC Systems",
-  product: "TireServ",
-  tagline: "Software with a Personal Touch",
-  yearsInBusiness: 48,
-  address: "25 Hazelwood Dr., Amherst, NY 14228",
-  email: "patrick@qbc.com",
-  emailHref: "mailto:patrick@qbc.com",
+  company: "Spark Sleep Solutions",
+  descriptor:
+    "A dental sleep medicine practice treating obstructive sleep apnea and snoring with custom, FDA-approved oral appliances.",
+  privacyUrl: "https://sparksleep.com/privacy-policy/",
 };
 
 export const CURRENT_YEAR = new Date().getFullYear();
 
+// ─── Hero ───
 export const HERO = {
-  chips: [
-    `${BRAND.yearsInBusiness} years in tire distribution`,
-    "Purpose-built ERP",
-    "Cloud-based — nothing to install",
-  ],
-  h1Lead: "The ERP built exclusively for",
-  h1Accent: "tire & automotive wholesale distributors.",
+  eyebrow: "Board-Certified Dental Sleep Medicine — San Jose · San Ramon · Sunnyvale",
+  h1: "Sleep Apnea Treatment Without the Mask",
   subhead:
-    "Outgrown QuickBooks or a patched-together legacy system? TireServ unifies POS, inventory, purchasing, AR, AP, GL, and reporting in one cloud system — purpose-built over 48 years for tire distribution, not a generic ERP bent to fit.",
+    "A custom, FDA-approved oral appliance worn at night — no masks, no cords, no noise — made and adjusted by doctors who treat only sleep apnea and snoring.",
+  phoneLead: "Prefer to talk?",
+  formReassurance:
+    "No obligation. We accept most PPO, HMO, and Medicare plans and verify your benefits for you.",
 };
 
-// ─── Pain points (PAS — Problem / Agitate) ───
-export const PAIN_INTRO =
-  "If any of this sounds familiar, you've outgrown your current system.";
-
-export const PAIN_POINTS = [
-  {
-    id: "manual-workarounds",
-    icon: "clipboard",
-    title: "Manual workarounds everywhere",
-    body: "Re-keying orders by hand, spreadsheets bolted onto your accounting software, copy-paste between systems that were never meant to talk. Every workaround is another place errors creep in — and errors cost money.",
-  },
-  {
-    id: "inventory-blind-spots",
-    icon: "boxes",
-    title: "Inventory blind spots",
-    body: "You're never quite sure what's really in stock across your branches. Overselling, dead stock, and frantic phone calls to check availability are just part of the day. The numbers on the screen and the tires on the rack don't match.",
-  },
-  {
-    id: "stale-pricing",
-    icon: "trending",
-    title: "No real-time wholesale pricing",
-    body: "Pricing and availability from your suppliers' wholesale platforms live in a separate window — updated by hand, always a little stale. Missed margin and quoting errors follow when the numbers can't keep up with the market.",
-  },
+// ─── Credential trust strip (#credentials) ───
+export const CREDENTIALS = [
+  { icon: "shield-check", value: "Board-Certified", label: "DABDSM & ASBA diplomate" },
+  { icon: "users", value: "5,000+", label: "Patients treated" },
+  { icon: "package", value: "100+", label: "FDA-approved devices" },
+  { icon: "map-pin", value: "6", label: "Bay Area locations" },
 ];
 
-// ─── Capabilities (PAS — Solution) ───
-export const CAPABILITIES_INTRO =
-  "TireServ replaces the patchwork with one system your whole operation runs on — every module built for how tire and automotive distributors actually work.";
+// ─── What it is (#what-it-is) ───
+export const WHAT_IT_IS = {
+  eyebrow: "The treatment",
+  heading: "A custom oral appliance you can picture wearing tonight",
+  body: [
+    "Oral sleep devices carefully open your airway by preventing the soft tissues and tongue from collapsing, as is common during sleep for someone with sleep apnea.",
+    "Unlike CPAP masks, our oral sleep appliances don't require electricity, masks, hoses, filters, or replacement humidifier tanks. The appliance is small enough to fit in your hand, worn only at night, and carries easily when you travel.",
+    "This treatment is not about handing you a dental device. Our expertise lies in knowing how to adjust your device, proper follow up to ensure it is optimally titrated, and knowing how to prevent any surprises from occurring.",
+  ],
+  imageAlt: "A pair of clear custom oral sleep appliances resting on a glass surface in daylight",
+};
 
-// Core ERP modules — the single-system stack.
-export const CORE_MODULES = [
-  { icon: "cart", title: "Point of Sale", body: "Fast, tire-aware counter and phone sales that flow straight into inventory and accounting." },
-  { icon: "boxes", title: "Inventory Management", body: "Real-time stock across every branch, so what's on screen matches what's on the rack." },
-  { icon: "truck", title: "Purchasing", body: "Streamlined purchase orders and receiving tied directly to demand and stock levels." },
-  { icon: "receipt", title: "Accounts Receivable", body: "Track customer balances, terms, and collections without a separate ledger." },
-  { icon: "wallet", title: "Accounts Payable", body: "Manage vendor bills and payments in the same system that runs your sales floor." },
-  { icon: "ledger", title: "General Ledger", body: "A full GL underneath it all — no exporting to a bolt-on accounting package." },
-  { icon: "chart", title: "Reporting", body: "100+ standard reports covering sales, inventory, and financials out of the box." },
-];
-
-// Differentiators — the modern, tire-specific capabilities.
-export const DIFFERENTIATORS = [
-  {
-    icon: "sync",
-    title: "Real-time wholesale integration",
-    body: "TireServ connects directly to major wholesale tire platforms, so live pricing and availability flow into your system automatically — no manual updates, no stale numbers.",
-  },
-  {
-    icon: "mobile",
-    title: "Mobile order entry",
-    body: "Write orders from anywhere — the sales floor, a customer's shop, the road — on a tablet or phone, and watch them land in TireServ instantly.",
-    image: "/images/mobile-order.jpg",
-  },
-  {
-    icon: "send",
-    title: "Telegram-based reporting",
-    body: "Get the numbers you care about pushed straight to your phone through Telegram — daily figures and key reports without logging in.",
-  },
-  {
-    icon: "cloud",
-    title: "Cloud-based, browser-only",
-    body: "TireServ runs entirely in your browser. Nothing to install, nothing to maintain on-site — open it on any device and get to work.",
-  },
-];
-
-// ─── Why purpose-built (differentiation, dark band) ───
-export const WHY = {
-  headline: "Purpose-built for tire distribution — not a generic ERP with a tire skin.",
-  body: "For 48 years, we've built software exclusively for tire and automotive wholesale distributors. TireServ speaks your language out of the box — tire brands, wholesale platforms, and the distribution workflows you run every day.",
-  statValue: String(BRAND.yearsInBusiness),
-  statLabel: "years building for tire distribution — and nothing else",
-  comparison: [
+// ─── Why an appliance (#why-an-appliance) ───
+export const WHY_APPLIANCE = {
+  eyebrow: "Why patients choose it",
+  heading: "Built around your night, not a machine",
+  cards: [
     {
-      side: "generic",
-      label: "A generic ERP",
-      points: [
-        "You bend your business to fit the software",
-        "Tire and wholesale workflows bolted on after the fact",
-        "Integrations and customizations you pay to build",
-      ],
+      icon: "plug",
+      title: "Nothing to plug in or pack",
+      body: "No electricity, hoses, filters, or humidifier tanks to manage — you simply wear the appliance and go to sleep.",
     },
     {
-      side: "tireserv",
-      label: "TireServ",
-      points: [
-        "The software was built around your business",
-        "Tire brands and wholesale platforms understood natively",
-        "Real-time wholesale integration and reporting included",
-      ],
+      icon: "moon",
+      title: "Quiet for the whole room",
+      body: "The appliance makes no sound at all, so it stays quiet for you and for whoever sleeps beside you.",
+    },
+    {
+      icon: "feather",
+      title: "Fits in your hand and pocket",
+      body: "It's small and light enough to hold in one hand, so it travels with you wherever the night takes you.",
+    },
+    {
+      icon: "sliders",
+      title: "Custom-made and adjusted to you",
+      body: "Your appliance is made for your mouth and fine-tuned over follow-up visits so it fits the way it should.",
+    },
+    {
+      icon: "layers",
+      title: "Chosen from 100+ options",
+      body: "We select from over 100 FDA-approved devices to match the appliance to you, rather than one-size-fits-all.",
+    },
+    {
+      icon: "badge-check",
+      title: "3-year warranty on most devices",
+      body: "Most devices carry a 3-year warranty — a standing quality signal behind the appliance you receive.",
     },
   ],
 };
 
-// ─── Proof points ───
-export const PROOF_STATS = [
-  { value: `${BRAND.yearsInBusiness} Years`, label: "In business" },
-  { value: "Purpose-Built", label: "For tire distribution" },
-  { value: "Cloud-Based", label: "Browser-only, nothing to install" },
-  { value: "Real-Time", label: "Wholesale platform integration" },
+// ─── Insurance & cost (#insurance) ───
+export const INSURANCE = {
+  eyebrow: "Insurance & cost",
+  heading: "This is billed to your medical insurance — and we handle the paperwork",
+  body: [
+    "We work with most major medical insurances to help maximize your benefits to cover CPAP alternatives. Oral appliance therapy is billed to your medical insurance, not your dental plan.",
+    "Our staff will work with your physicians to get all your necessary documents and coordinate everything with your insurance provider, so you don't have to chase down forms.",
+    "We offer no-interest payment plans for patients paying out of an HSA or FSA (Health and Flexible Spending) Account.",
+  ],
+  caption: "We accept most PPO, HMO, and Medicare plans and verify your benefits for you.",
+  cta: "Check My Insurance Coverage",
+  insurers: [
+    { src: "/images/insurers/insurance-blue-shield.jpg", name: "Blue Shield" },
+    { src: "/images/insurers/insurance-cigna.jpg", name: "Cigna" },
+    { src: "/images/insurers/insurance-tricare.jpg", name: "Tricare" },
+    { src: "/images/insurers/insurance-medicare.jpg", name: "Medicare" },
+    { src: "/images/insurers/insurance-unicare.jpg", name: "UniCare" },
+    { src: "/images/insurers/insurance-umr.jpg", name: "UMR" },
+    { src: "/images/insurers/insurance-anthem.jpg", name: "Anthem" },
+    { src: "/images/insurers/insurance-kaiser.jpg", name: "Kaiser Permanente" },
+  ],
+};
+
+// ─── Meet the doctors (#doctors) ───
+export const DOCTORS = {
+  eyebrow: "Meet the doctors",
+  heading: "Care from doctors who do nothing but sleep medicine",
+  anchorLine:
+    "It is not a coincidence that our doctors focus exclusively on Dental Sleep Medicine.",
+  list: [
+    {
+      initials: "SS",
+      name: "Dr. Srujal H. Shah, DDS",
+      creds: "Diplomate, American Board of Dental Sleep Medicine (DABDSM) and Diplomate, American Sleep and Breathing Academy (ASBA).",
+    },
+    {
+      initials: "SS",
+      name: "Dr. Scott Stevinson, DDS",
+      creds: "40+ years of clinical experience.",
+    },
+    {
+      initials: "KP",
+      name: "Dr. Kajal Patel, DDS",
+      creds: "30+ years serving the San Francisco Bay Area.",
+    },
+  ],
+};
+
+// ─── How it works (#how-it-works) ───
+export const HOW_IT_WORKS = {
+  eyebrow: "What to expect",
+  heading: "The whole path, from your first call to a device that fits",
+  steps: [
+    {
+      title: "Request an appointment",
+      body: "You send a few details and our team calls you back. We verify your insurance benefits before your visit so there are no surprises.",
+    },
+    {
+      title: "Evaluation & airway analysis",
+      body: "We review your goals, medical history, symptoms, and sleep study, followed by an examination of your teeth, jaw, airway and surrounding tissues. An airway analysis study using Pharyngometry and Rhinometry is then completed to assess, in real-time, airway volume to help us see if oral appliance therapy might benefit you.",
+    },
+    {
+      title: "3D scan & custom device",
+      body: "After your examination, we complete advanced digital 3D scans using our intra-oral scanners, and your custom appliance is fabricated to fit your mouth.",
+    },
+    {
+      title: "Fitting, titration & follow-up",
+      body: "We fit the appliance and adjust it over structured follow-up visits — proper titration is what makes the device actually work for you.",
+    },
+  ],
+  bringHeading: "What to bring to your first visit",
+  bring: [
+    "Your Medical Insurance Card and picture ID",
+    "A copy of your most recent sleep study",
+    "A referral or prescription from your primary care or sleep physician (if available)",
+  ],
+  imageAlt: "A doctor and patient talking across a desk in a bright, calm consultation room",
+};
+
+// ─── Patient reviews (#reviews) ───
+// Verbatim published reviews only, with exact attribution. No aggregate rating.
+export const REVIEWS = [
+  {
+    quote:
+      "As a Physician I did a lot of research and investigating in seeking help with my sleep problems. I found the Doctors at Spark to be exceptional. I would continue with my care at Spark Sleep Solutions and would also referral my patients with the upmost confidence.",
+    name: "Terry L Franklin MD FAAFP",
+    city: "San Jose, CA",
+    stars: 5,
+    platform: "Yelp",
+  },
+  {
+    quote:
+      "I felt Dr. Shah was quite knowledgeable and appreciated that he listened to what I was saying about what I was doing for myself to help with sleep, and about the problems I'd had with the CPAP. He carefully explained about the device he was recommending and why that particular model.",
+    name: "Anonymous",
+    city: "San Ramon, CA",
+    stars: 5,
+    platform: "Healthgrades",
+  },
+  {
+    quote:
+      "Dr. Shah is very thorough, affable and smart. He was able to explain the various options for snoring and sleep apnea. The device I received works amazing. Snoring has disappeared!",
+    name: "Rob G",
+    city: "San Jose, CA",
+    stars: 5,
+    platform: "Google",
+  },
+  {
+    quote:
+      "Was sent here by my Kaiser med plan. From day one everyone was kind, helpful and understanding to my needs. Product I need is “top-drawer” and easy to use. Thanks crew.",
+    name: "Bev",
+    city: "San Jose, CA",
+    stars: 5,
+    platform: "Facebook",
+  },
+  {
+    quote:
+      "Friendly, knowledgeable staff that efficiently and professionally fitted my wife and me for sleep aides. Clearly explained each step of the way and the options available to us.",
+    name: "Gerald",
+    city: "San Ramon, CA",
+    stars: 4,
+    platform: "BirdEye",
+  },
+  {
+    quote:
+      "Had my initial consultation yesterday. The staff and Dr. Shah were wonderful. They made me feel very comfortable and answered all my questions. I would highly recommend them to anyone. Thanks!",
+    name: "Susan",
+    city: "San Jose, CA",
+    stars: 5,
+    platform: "Demandforce",
+  },
+  {
+    quote:
+      "Very helpful and pleasant staff. Dr. Shah explains the process each step of the way and is very easy to talk to about your issues with sleep apnea. Anyone considering an oral device should check out Dr. Shah.",
+    name: "William",
+    city: "San Jose, CA",
+    stars: 5,
+    platform: "Demandforce",
+  },
+  {
+    quote:
+      "Excellent experience. Staff- Kathy Angelina and Doctor Shah were attentive, patient and professional. Kathy was very. helpful and patient with registration. Angelina was attentive and supportive. Dr. Shah was professional and thorough. All questions were answered. Great experience.",
+    name: "John",
+    city: "San Jose, CA",
+    stars: 5,
+    platform: "Demandforce",
+  },
 ];
 
-export const PROOF_PARAGRAPH =
-  "QBC Systems is a family- and owner-operated company built on one idea: Software with a Personal Touch. We're full-service — software, hardware, IT, and training — supporting tire and automotive distributors from our home in Amherst, New York. When you call, you reach people who know your business.";
+// ─── Locations (#locations) ───
+export const LOCATIONS = {
+  eyebrow: "Where we see you",
+  heading: "Close to home for the follow-up visits that matter",
+  hours: "Monday through Friday, 9am–5pm Pacific · By appointment only",
+  list: [
+    {
+      city: "San Jose",
+      address: "6120 Hellyer Ave Ste 125, San Jose, CA 95138",
+    },
+    {
+      city: "San Ramon",
+      address: "1081 Market Place Ste 100, San Ramon, CA 94583",
+    },
+    {
+      city: "Sunnyvale",
+      address: null,
+    },
+  ],
+  closing: "Spark Sleep Solutions has six Bay Area locations.",
+  imageAlt: "A calm Bay Area office exterior in warm morning light with a palm tree",
+};
 
-// ─── FAQ ───
+// ─── FAQ (#faq) ───
 export const FAQ = [
   {
-    q: "What does the free demo include?",
-    a: "A working walkthrough of TireServ mapped to your operation — how POS, inventory, purchasing, and accounting come together in one system, plus the real-time wholesale integration, mobile order entry, and reporting. We'll also scope a quote tailored to your business. No cost, no commitment.",
+    q: "Will my insurance cover this?",
+    a: "Oral appliance therapy is billed to your medical insurance, not your dental plan. We accept most PPO, HMO, and Medicare plans and verify your benefits for you before your visit. Our staff coordinates the documentation with your physicians and your insurance provider, so you know where things stand before you commit to anything.",
   },
   {
-    q: "Can you migrate us off QuickBooks or our legacy system?",
-    a: "Yes. Moving distributors off QuickBooks and aging legacy systems is core to what we do. During the demo we'll walk through how your data and workflows come across so you can see the migration path before you decide anything.",
+    q: "Do I need a sleep study first?",
+    a: "Bring a copy of your most recent sleep study if you have one. If you don't, that's alright — the team reviews your situation, symptoms, and history at your first visit and tells you what is needed next. We'll never frame a sleep study as the offer; it's simply part of understanding your care.",
   },
   {
-    q: "Is it really browser-only and cloud-based — anything to install?",
-    a: "Nothing to install. TireServ runs entirely in your web browser on any device. There are no servers to maintain on-site and no software to update yourself — you simply log in and work.",
+    q: "What does wearing the appliance feel like?",
+    a: "The appliance is small and custom-fit to your mouth, worn only at night. There are no masks, hoses, or noise. Over a few follow-up visits we adjust it for comfort and fit, so it settles into something you can wear night after night without a second thought.",
   },
   {
-    q: "How does the real-time wholesale platform integration work?",
-    a: "TireServ connects directly to major wholesale tire platforms, so pricing and availability flow into your system in real time instead of being re-keyed by hand. Your team quotes and orders against current numbers, not yesterday's.",
+    q: "How long does treatment take and what follow-up is involved?",
+    a: "After your custom appliance is made, we fit it and then titrate it — adjusting it gradually over structured follow-up visits. That follow-up is the part that makes the device work for you, so we build it into your care rather than handing you a device and sending you on your way.",
   },
   {
-    q: "Is TireServ a fit for a smaller distributor?",
-    a: "It's built for small-to-mid-sized tire and automotive wholesale distributors — owner-operators, not Fortune 500 IT departments. The two quick questions on the demo form (revenue and team size) simply help us tailor the walkthrough; every request gets a response regardless of your answers.",
-  },
-  {
-    q: "What does it cost?",
-    a: "Pricing is tailored to your operation rather than a one-size sticker. The free demo includes a scoped quote based on what you actually need, so you get real numbers for your business — with no obligation.",
+    q: "What happens at my first appointment and what should I bring?",
+    a: "We review your goals, history, and any prior sleep study, then examine your teeth, jaw, and airway and complete a real-time airway analysis. Please bring your medical insurance card and photo ID, a copy of your most recent sleep study, and any referral or prescription from your primary care or sleep physician if you have one.",
   },
 ];
 
-// ─── Final CTA ───
-export const FINAL_CTA = {
-  headline: "See TireServ against your real workflow — free, no commitment.",
-  body: "Request a demo and we'll show you how one purpose-built system replaces the workarounds. Prefer to talk first? Call us. Every request gets a response within one business day.",
+// ─── Request appointment (#request-appointment) ───
+export const REQUEST = {
+  eyebrow: "Request your appointment",
+  heading: "Request Your Appointment",
+  subheading:
+    "A board-certified doctor will review your situation, and the team verifies your insurance benefits before your visit — no obligation.",
+  altPathLead: "Prefer to call?",
+};
+
+// ─── Footer ───
+export const FOOTER = {
+  summary: "Six Bay Area locations · Monday–Friday, 9am–5pm Pacific · By appointment only",
+  descriptor: BRAND.descriptor,
 };
 
 // ─── Form select options (wired exactly to the LeadFormField contract) ───
-export const TIRE_BRANDS = [
-  "Michelin / BFGoodrich / Uniroyal",
-  "Bridgestone / Firestone",
-  "Goodyear / Dunlop / Kelly",
-  "Continental / General Tire",
-  "Cooper / Mastercraft",
-  "Hankook",
-  "Yokohama",
-  "Pirelli",
-  "Toyo / Nitto",
-  "Falken / Ohtsu",
-  "Nexen",
-  "Multiple brands (mixed inventory)",
+export const IS_ADULT_OPTIONS = ["Yes", "No"];
+export const INSURANCE_TYPE_OPTIONS = ["PPO", "HMO", "Medicare", "Self-pay or Cash"];
+export const REASON_OPTIONS = [
+  "Sleep apnea treatment",
+  "Snoring treatment",
+  "Sleep study or diagnosis",
+  "TMJ treatment",
   "Other",
 ];
 
-export const REVENUE_OPTIONS = [
-  "Under $2M",
-  "$2M–$5M",
-  "$5M–$10M",
-  "$10M–$20M",
-  "$20M–$40M",
-  "$40M+",
-];
+// Answers that qualify (drives the ad conversion event, never the UX).
+export const QUALIFYING = {
+  isAdult: ["Yes"],
+  insuranceType: ["PPO", "HMO", "Medicare"],
+  reasonForVisit: ["Sleep apnea treatment", "Snoring treatment"],
+};
 
-export const EMPLOYEE_OPTIONS = ["Under 5", "5–25", "25+"];
-
-// ─── Mega tracking — real QBC IDs. NO Meta Pixel (customer opted out). ───
+// ─── Mega tracking — real Spark IDs. NO Meta Pixel (client no-Meta boundary). ───
 export const TRACKING = {
-  siteKey: "5rn5f8eze80jvipf",
-  siteId: "a6d7ae94-3574-4c2a-9642-4385d223e4e7",
-  gtmId: "GTM-5PN93D",
+  siteKey: "e0l9cid0feq22q6a",
+  siteId: "863c790a-8435-4bf8-a06f-09fdc965be15",
+  gtmId: "GTM-T6PPJSLJ",
 };
 
 // Mega submission API expects snake_case keys: customer_id, site_id, source_provider
 export const FORM = {
-  customerId: "16ee8343-6dad-4978-987d-49a4f59ef473",
-  siteId: "a6d7ae94-3574-4c2a-9642-4385d223e4e7",
-  sourceProvider: "qbc-systems-landing",
-  // snake_case mirrors for documentation + lint visibility:
-  customer_id: "16ee8343-6dad-4978-987d-49a4f59ef473",
-  site_id: "a6d7ae94-3574-4c2a-9642-4385d223e4e7",
+  customerId: "4fd12f2b-4473-4d43-b021-72a3b0d6f558",
+  siteId: "863c790a-8435-4bf8-a06f-09fdc965be15",
+  sourceProvider: "google",
 };
