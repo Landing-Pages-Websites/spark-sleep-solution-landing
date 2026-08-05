@@ -30,16 +30,24 @@ export function Hero(): React.ReactElement {
       <div className="mx-auto grid max-w-[1320px] items-center gap-5 px-5 md:px-8 lg:grid-cols-12 lg:gap-12">
         {/* Copy */}
         <div className="lg:col-span-7">
-          <p className="eyebrow on-dark">{HERO.eyebrow}</p>
-          <h1 className="h1 mt-2.5 max-w-2xl text-white md:mt-3">{HERO.h1}</h1>
-          <p className="mt-3 max-w-xl text-[17px] leading-relaxed text-[var(--color-on-dark)]/85 md:mt-4 md:text-[18px]">
-            {HERO.subhead}
+          <p className="eyebrow on-dark text-[13px] leading-snug md:text-[15px]">
+            {/* Desktop: full single line. Mobile: two tight lines that still name the geography. */}
+            <span className="hidden md:inline">{HERO.eyebrow}</span>
+            <span className="md:hidden">
+              <span className="block">{HERO.eyebrowLead}</span>
+              <span className="mt-0.5 block text-white/70">{HERO.eyebrowGeo}</span>
+            </span>
+          </p>
+          <h1 className="h1 mt-2 max-w-2xl text-white md:mt-3">{HERO.h1}</h1>
+          <p className="mt-2.5 max-w-xl text-[17px] leading-relaxed text-[var(--color-on-dark)]/85 md:mt-4 md:text-[18px]">
+            <span className="md:hidden">{HERO.subheadShort}</span>
+            <span className="hidden md:inline">{HERO.subhead}</span>
           </p>
 
           {/* Compact tel link — kept small on mobile so the form card clears the fold */}
           <a
             href={PHONE_HREF}
-            className="mt-3 inline-flex items-center gap-2 rounded-md px-1 text-[17px] font-semibold text-white transition-colors hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] md:mt-6 md:rounded-xl md:border-[1.5px] md:border-white/35 md:px-5 md:py-3 md:hover:border-white md:hover:bg-white/10 md:hover:text-white"
+            className="mt-2.5 inline-flex items-center gap-2 rounded-md px-1 text-[17px] font-semibold text-white transition-colors hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] md:mt-6 md:rounded-xl md:border-[1.5px] md:border-white/35 md:px-5 md:py-3 md:hover:border-white md:hover:bg-white/10 md:hover:text-white"
             aria-label={`Call Spark Sleep Solutions at ${PHONE}`}
           >
             <Icon

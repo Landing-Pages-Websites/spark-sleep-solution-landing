@@ -26,9 +26,15 @@ export const CURRENT_YEAR = new Date().getFullYear();
 // ─── Hero ───
 export const HERO = {
   eyebrow: "Board-Certified Dental Sleep Medicine — San Jose · San Ramon · Sunnyvale",
+  // Mobile splits the eyebrow into two tight lines so it never wraps to three.
+  eyebrowLead: "Board-Certified Dental Sleep Medicine",
+  eyebrowGeo: "San Jose · San Ramon · Sunnyvale",
   h1: "Sleep Apnea Treatment Without the Mask",
   subhead:
     "A custom, FDA-approved oral appliance worn at night — no masks, no cords, no noise — made and adjusted by doctors who treat only sleep apnea and snoring.",
+  // Shorter mobile sub-headline to keep the form card above the fold at 390px.
+  subheadShort:
+    "A custom, FDA-approved oral appliance worn at night — no masks, no cords, no noise.",
   phoneLead: "Prefer to talk?",
   formReassurance:
     "No obligation. We accept most PPO, HMO, and Medicare plans and verify your benefits for you.",
