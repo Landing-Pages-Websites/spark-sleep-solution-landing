@@ -326,11 +326,12 @@ export const QUALIFYING = {
   reasonForVisit: ["Sleep apnea treatment", "Snoring treatment"],
 };
 
-// ─── Mega tracking — real Spark IDs. NO Meta Pixel (client no-Meta boundary). ───
+// ─── Mega tracking — real Spark IDs. Meta Pixel authorized 2026-08-11. ───
 export const TRACKING = {
   siteKey: "e0l9cid0feq22q6a",
   siteId: "863c790a-8435-4bf8-a06f-09fdc965be15",
   gtmId: "GTM-T6PPJSLJ",
+  pixelId: "1532928708309341",
 };
 
 // Mega submission API expects snake_case keys: customer_id, site_id, source_provider

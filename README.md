@@ -34,8 +34,9 @@ see `content-sources.json`. No aggregate rating, no invented facts, no negative-
 framing, no outcome guarantees, no age-qualifying copy outside the form field.
 
 ## Tracking
-Mega optimizer + GTM (`GTM-T6PPJSLJ`) + the shared CallTrackingMetrics script. No Meta
-pixel (client no-Meta boundary). `robots: noindex` — this is an ads LP.
+Mega optimizer + GTM (`GTM-T6PPJSLJ`) + the shared CallTrackingMetrics script + the Meta
+Pixel (`1532928708309341`, configured via `MEGA_TAG_CONFIG.pixelId` — the optimizer injects
+it). `robots: noindex` — this is an ads LP.
 
 ## Develop
 ```bash

@@ -2,12 +2,13 @@
 
 import { useEffect } from "react";
 
-// No pixelId — the client has a firm no-Meta boundary. Never add a Meta pixel.
+// pixelId is passed through to MEGA_TAG_CONFIG; the optimizer injects the Meta Pixel.
 interface TrackingConfig {
   siteKey?: string;
   siteId?: string;
   gtmId?: string;
   gaId?: string;
+  pixelId?: string;
 }
 
 declare global {
@@ -29,6 +30,7 @@ export function useTracking(config: TrackingConfig) {
         siteId: config.siteId,
         gtmId: config.gtmId,
         gaId: config.gaId,
+        pixelId: config.pixelId,
       };
     }
 

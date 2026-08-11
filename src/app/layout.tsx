@@ -17,10 +17,11 @@ const body = Figtree({
   display: "swap",
 });
 
-// === MEGA TAG CONFIG === (real Spark values — client no-Meta boundary, so NO pixelId)
+// === MEGA TAG CONFIG === (real Spark values — Meta Pixel authorized 2026-08-11)
 const SITE_KEY = "e0l9cid0feq22q6a";
 const SITE_ID = "863c790a-8435-4bf8-a06f-09fdc965be15";
 const GTM_ID = "GTM-T6PPJSLJ";
+const META_PIXEL_ID = "1532928708309341";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://explore.sparksleep.com"),
@@ -47,7 +48,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }): React.ReactElement {
-  const megaTagConfig = `window.MEGA_TAG_CONFIG={siteKey:"${SITE_KEY}",siteId:"${SITE_ID}",gtmId:"${GTM_ID}"};window.API_ENDPOINT="https://optimizer.gomega.ai";window.TRACKING_API_ENDPOINT="https://events-api.gomega.ai";`;
+  const megaTagConfig = `window.MEGA_TAG_CONFIG={siteKey:"${SITE_KEY}",siteId:"${SITE_ID}",gtmId:"${GTM_ID}",pixelId:"${META_PIXEL_ID}"};window.API_ENDPOINT="https://optimizer.gomega.ai";window.TRACKING_API_ENDPOINT="https://events-api.gomega.ai";`;
 
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
