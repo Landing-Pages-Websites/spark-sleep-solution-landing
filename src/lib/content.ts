@@ -2,9 +2,11 @@
 // Single source of truth for copy, phone, form options, and tracking IDs.
 // Every fact here is verbatim from the client brief / sparksleep.com — invent nothing.
 
-// CTM tracking number (forwards to the main office line). NEVER 408-490-0182 directly.
-export const PHONE = "(408) 608-0525";
-export const PHONE_HREF = "tel:4086080525";
+// Canonical phone_routing_number from the task input. The raw source must render
+// this exact number at every touchpoint. The universal CTM script may swap it for a
+// tracking number at browser runtime only; never hard-code a tracking number here.
+export const PHONE = "(408) 490-0182";
+export const PHONE_HREF = "tel:4084900182";
 
 export const REQUEST_ANCHOR = "#request-appointment";
 
