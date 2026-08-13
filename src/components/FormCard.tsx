@@ -13,6 +13,10 @@ import {
 } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
+// Fail-closed submit error. Uses the authorized PHONE constant as plain text
+// (no new phone link). No em/en dash. Keep it calm and actionable.
+const SUBMIT_ERROR = `We could not send your request. Please try again, or call us at ${PHONE}.`;
+
 declare global {
   interface Window {
     dataLayer?: Record<string, unknown>[];
@@ -145,6 +149,7 @@ export function FormCard({
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Synchronous re-entrancy guard — blocks duplicate fires from rapid clicks
   // before React re-renders with the disabled state.
@@ -201,9 +206,10 @@ export function FormCard({
     }
     inFlightRef.current = true;
     setSubmitting(true);
+    setSubmitError(null);
     const qualified = variant === "full" ? isQualified(data) : false;
     try {
-      await submit({
+      const res = await submit({
         firstName: data.firstName.trim(),
         lastName: data.lastName.trim(),
         email: data.email.trim(),
@@ -215,15 +221,18 @@ export function FormCard({
         formVariant: variant,
         route_slug: window.location.pathname,
       });
+      // Fail closed: only a server-confirmed lead earns tracking + success.
+      if (res?.ok !== true) {
+        throw new Error("Submission was not confirmed by the server.");
+      }
       fireTracking(qualified);
       setSubmitted(true);
     } catch (err) {
-      // Never strand the visitor — still fire tracking + show the courteous
-      // confirmation. Every lead is treated identically regardless of outcome.
+      // Fail closed: the lead was NOT delivered. Do not fire tracking, do not
+      // show success. Surface a retryable error and preserve the typed values.
       const message = err instanceof Error ? err.message : "Unknown submission error";
       console.error("Form submission error:", message);
-      fireTracking(qualified);
-      setSubmitted(true);
+      setSubmitError(SUBMIT_ERROR);
     } finally {
       inFlightRef.current = false;
       setSubmitting(false);
@@ -472,6 +481,12 @@ export function FormCard({
             "Select a reason"
           )}
         </>
+      )}
+
+      {submitError && (
+        <p role="alert" aria-live="polite" className="lp-field-error font-semibold">
+          {submitError}
+        </p>
       )}
 
       <button
