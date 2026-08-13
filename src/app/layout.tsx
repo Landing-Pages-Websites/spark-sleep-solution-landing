@@ -17,7 +17,7 @@ const body = Figtree({
   display: "swap",
 });
 
-// === MEGA TAG CONFIG === (real Spark values — Meta Pixel authorized 2026-08-11)
+// === MEGA TAG CONFIG === (real Spark values: Meta Pixel authorized 2026-08-11)
 const SITE_KEY = "e0l9cid0feq22q6a";
 const SITE_ID = "863c790a-8435-4bf8-a06f-09fdc965be15";
 const GTM_ID = "GTM-T6PPJSLJ";
@@ -26,13 +26,13 @@ const META_PIXEL_ID = "1532928708309341";
 export const metadata: Metadata = {
   metadataBase: new URL("https://explore.sparksleep.com"),
   title:
-    "Sleep Apnea Treatment Without the Mask | Spark Sleep Solutions — San Jose, San Ramon & Sunnyvale",
+    "Sleep Apnea Treatment Without the Mask | Spark Sleep Solutions, San Jose, San Ramon & Sunnyvale",
   description:
-    "Board-certified dental sleep medicine in the Bay Area. A custom, FDA-approved oral appliance for sleep apnea and snoring — no masks, no cords, no noise. We accept most PPO, HMO, and Medicare plans and verify your benefits for you.",
+    "Board-certified dental sleep medicine in the Bay Area. A custom, FDA-approved oral appliance for sleep apnea and snoring. No masks, no cords, no noise. We accept most PPO, HMO, and Medicare plans and verify your benefits for you.",
   openGraph: {
     title: "Sleep Apnea Treatment Without the Mask | Spark Sleep Solutions",
     description:
-      "A custom, FDA-approved oral appliance worn at night — made and adjusted by doctors who treat only sleep apnea and snoring. Six Bay Area locations.",
+      "A custom, FDA-approved oral appliance worn at night, made and adjusted by doctors who treat only sleep apnea and snoring. Six Bay Area locations.",
     images: ["/images/hero-morning.jpg"],
     type: "website",
   },
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     icon: "/icon.png",
     apple: "/apple-icon.png",
   },
-  robots: { index: false, follow: false }, // ads LP — not indexed
+  robots: { index: false, follow: false }, // ads LP: not indexed
 };
 
 export default function RootLayout({
@@ -67,7 +67,7 @@ export default function RootLayout({
       </head>
       <body className="bg-[var(--color-bg)] text-[var(--color-text)] antialiased">
         {children}
-        {/* CallTrackingMetrics — universal Mega account (never remove) */}
+        {/* CallTrackingMetrics: universal Mega account (never remove) */}
         <Script src="https://572388.tctm.co/t.js" strategy="afterInteractive" />
       </body>
     </html>

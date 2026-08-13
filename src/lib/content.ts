@@ -1,6 +1,6 @@
-// Site-wide content + config for Spark Sleep Solutions — sleep apnea LP.
+// Site-wide content + config for Spark Sleep Solutions: sleep apnea LP.
 // Single source of truth for copy, phone, form options, and tracking IDs.
-// Every fact here is verbatim from the client brief / sparksleep.com — invent nothing.
+// Every fact here is verbatim from the client brief / sparksleep.com. Invent nothing.
 
 // Canonical phone_routing_number from the task input. The raw source must render
 // this exact number at every touchpoint. The universal CTM script may swap it for a
@@ -27,16 +27,16 @@ export const CURRENT_YEAR = new Date().getFullYear();
 
 // ─── Hero ───
 export const HERO = {
-  eyebrow: "Board-Certified Dental Sleep Medicine — San Jose · San Ramon · Sunnyvale",
+  eyebrow: "Board-Certified Dental Sleep Medicine · San Jose · San Ramon · Sunnyvale",
   // Mobile splits the eyebrow into two tight lines so it never wraps to three.
   eyebrowLead: "Board-Certified Dental Sleep Medicine",
   eyebrowGeo: "San Jose · San Ramon · Sunnyvale",
   h1: "Sleep Apnea Treatment Without the Mask",
   subhead:
-    "A custom, FDA-approved oral appliance worn at night — no masks, no cords, no noise — made and adjusted by doctors who treat only sleep apnea and snoring.",
+    "A custom, FDA-approved oral appliance worn at night: no masks, no cords, no noise. Made and adjusted by doctors who treat only sleep apnea and snoring.",
   // Shorter mobile sub-headline to keep the form card above the fold at 390px.
   subheadShort:
-    "A custom, FDA-approved oral appliance worn at night — no masks, no cords, no noise.",
+    "A custom, FDA-approved oral appliance worn at night: no masks, no cords, no noise.",
   phoneLead: "Prefer to talk?",
   formReassurance:
     "No obligation. We accept most PPO, HMO, and Medicare plans and verify your benefits for you.",
@@ -70,7 +70,7 @@ export const WHY_APPLIANCE = {
     {
       icon: "plug",
       title: "Nothing to plug in or pack",
-      body: "No electricity, hoses, filters, or humidifier tanks to manage — you simply wear the appliance and go to sleep.",
+      body: "No electricity, hoses, filters, or humidifier tanks to manage. You simply wear the appliance and go to sleep.",
     },
     {
       icon: "moon",
@@ -95,7 +95,7 @@ export const WHY_APPLIANCE = {
     {
       icon: "badge-check",
       title: "3-year warranty on most devices",
-      body: "Most devices carry a 3-year warranty — a standing quality signal behind the appliance you receive.",
+      body: "Most devices carry a 3-year warranty, a standing quality signal behind the appliance you receive.",
     },
   ],
 };
@@ -103,7 +103,7 @@ export const WHY_APPLIANCE = {
 // ─── Insurance & cost (#insurance) ───
 export const INSURANCE = {
   eyebrow: "Insurance & cost",
-  heading: "This is billed to your medical insurance — and we handle the paperwork",
+  heading: "This is billed to your medical insurance, and we handle the paperwork",
   body: [
     "We work with most major medical insurances to help maximize your benefits to cover CPAP alternatives. Oral appliance therapy is billed to your medical insurance, not your dental plan.",
     "Our staff will work with your physicians to get all your necessary documents and coordinate everything with your insurance provider, so you don't have to chase down forms.",
@@ -167,7 +167,7 @@ export const HOW_IT_WORKS = {
     },
     {
       title: "Fitting, titration & follow-up",
-      body: "We fit the appliance and adjust it over structured follow-up visits — proper titration is what makes the device actually work for you.",
+      body: "We fit the appliance and adjust it over structured follow-up visits. Proper titration is what makes the device actually work for you.",
     },
   ],
   bringHeading: "What to bring to your first visit",
@@ -279,7 +279,7 @@ export const FAQ = [
   },
   {
     q: "Do I need a sleep study first?",
-    a: "Bring a copy of your most recent sleep study if you have one. If you don't, that's alright — the team reviews your situation, symptoms, and history at your first visit and tells you what is needed next. We'll never frame a sleep study as the offer; it's simply part of understanding your care.",
+    a: "Bring a copy of your most recent sleep study if you have one. If you don't, that's alright. The team reviews your situation, symptoms, and history at your first visit and tells you what is needed next. We'll never frame a sleep study as the offer; it's simply part of understanding your care.",
   },
   {
     q: "What does wearing the appliance feel like?",
@@ -287,7 +287,7 @@ export const FAQ = [
   },
   {
     q: "How long does treatment take and what follow-up is involved?",
-    a: "After your custom appliance is made, we fit it and then titrate it — adjusting it gradually over structured follow-up visits. That follow-up is the part that makes the device work for you, so we build it into your care rather than handing you a device and sending you on your way.",
+    a: "After your custom appliance is made, we fit it and then titrate it, adjusting it gradually over structured follow-up visits. That follow-up is the part that makes the device work for you, so we build it into your care rather than handing you a device and sending you on your way.",
   },
   {
     q: "What happens at my first appointment and what should I bring?",
@@ -300,7 +300,7 @@ export const REQUEST = {
   eyebrow: "Request your appointment",
   heading: "Request Your Appointment",
   subheading:
-    "A board-certified doctor will review your situation, and the team verifies your insurance benefits before your visit — no obligation.",
+    "A board-certified doctor will review your situation, and the team verifies your insurance benefits before your visit. No obligation.",
   altPathLead: "Prefer to call?",
 };
 
@@ -328,7 +328,7 @@ export const QUALIFYING = {
   reasonForVisit: ["Sleep apnea treatment", "Snoring treatment"],
 };
 
-// ─── Mega tracking — real Spark IDs. Meta Pixel authorized 2026-08-11. ───
+// ─── Mega tracking: real Spark IDs. Meta Pixel authorized 2026-08-11. ───
 export const TRACKING = {
   siteKey: "e0l9cid0feq22q6a",
   siteId: "863c790a-8435-4bf8-a06f-09fdc965be15",

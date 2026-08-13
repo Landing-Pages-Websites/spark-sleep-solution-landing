@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  /* Spark Sleep Solutions — brand tokens (from design_direction color_roles) */
-  --color-primary: #0b8846;          /* brand green — primary CTA */
+  /* Spark Sleep Solutions: brand tokens (from design_direction color_roles) */
+  --color-primary: #0b8846;          /* brand green: primary CTA */
   --color-primary-hover: #07713a;
   --color-primary-active: #065c2f;
   --color-primary-disabled: #a9b8af;
-  --color-dark: #0f2a3f;             /* secondary — dark bands (hero, doctors, footer) */
+  --color-dark: #0f2a3f;             /* secondary: dark bands (hero, doctors, footer) */
   --color-dark-deep: #0a3a2a;        /* hero gradient stop */
-  --color-accent: #b4d86c;           /* lime — focus rings, decorative rules (never text on white) */
+  --color-accent: #b4d86c;           /* lime: focus rings, decorative rules (never text on white) */
   --color-link: #07713a;
 
   /* Neutrals */
@@ -59,7 +59,7 @@
   }
 }
 
-/* Eyebrow label — 15px 600 uppercase-tracked link-green above each h2 */
+/* Eyebrow label: 15px 600 uppercase-tracked link-green above each h2 */
 .eyebrow {
   font-family: var(--font-body);
   font-size: 15px;

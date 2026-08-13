@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { CTA, REQUEST_ANCHOR } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
-// Mobile-only sticky bar. FORM-ONLY — zero tel: links here (hard rule). Hidden
+// Mobile-only sticky bar. FORM-ONLY: zero tel: links here (hard rule). Hidden
 // while the hero form or the final form is on screen so it never covers a field.
 export function StickyCta(): React.ReactElement {
   const [show, setShow] = useState(false);

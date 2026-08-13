@@ -6,7 +6,7 @@ import { Icon } from "@/components/icons";
 interface DualCTAProps {
   align?: "start" | "center";
   primaryLabel?: string;
-  /** Use on the dark navy band — lightens the secondary phone link. */
+  /** Use on the dark navy band: lightens the secondary phone link. */
   onDark?: boolean;
 }
 

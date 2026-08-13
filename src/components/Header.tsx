@@ -4,7 +4,7 @@ import { CTA, PHONE, PHONE_HREF, REQUEST_ANCHOR } from "@/lib/content";
 import { Icon } from "@/components/icons";
 
 // Solid white sticky header. The logo is a dark-ink wordmark, so the bar must
-// stay light at scroll=0 — never transparent over the dark hero. No nav links:
+// stay light at scroll=0, never transparent over the dark hero. No nav links:
 // this is a single-goal landing page.
 export function Header(): React.ReactElement {
   return (

@@ -26,9 +26,9 @@ declare global {
   }
 }
 
-// ─── Validation — inline per-field, no native tooltips ───
+// ─── Validation: inline per-field, no native tooltips ───
 
-// RFC-5322-lite — the lead API server-validates the rest.
+// RFC-5322-lite. The lead API server-validates the rest.
 const EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
 // NANP: area code & exchange each start 2-9 and may not be an N11.
 const NANP_RE = /^[2-9](?!11)\d{2}[2-9](?!11)\d{2}\d{4}$/;
@@ -64,9 +64,13 @@ const INITIAL: FormState = {
 
 type FieldErrors = Partial<Record<FieldKey, string>>;
 
-const HERO_FIELDS: FieldKey[] = ["firstName", "lastName", "email", "phone"];
-const FULL_FIELDS: FieldKey[] = [
-  ...HERO_FIELDS,
+// One field set for both variants: hero and bottom forms ask the same seven
+// questions and are scored by the same qualification logic.
+const FIELDS: FieldKey[] = [
+  "firstName",
+  "lastName",
+  "email",
+  "phone",
   "isAdult",
   "insuranceType",
   "reasonForVisit",
@@ -117,7 +121,7 @@ function formatPhone(value: string): string {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-// Qualification drives the ad conversion event only — NEVER the UX.
+// Qualification drives the ad conversion event only, NEVER the UX.
 function isQualified(data: FormState): boolean {
   return (
     QUALIFYING.isAdult.includes(data.isAdult) &&
@@ -142,7 +146,6 @@ export function FormCard({
   heading,
 }: FormCardProps): React.ReactElement {
   const { submit } = useMegaLeadForm();
-  const fields = variant === "hero" ? HERO_FIELDS : FULL_FIELDS;
 
   const [data, setData] = useState<FormState>(INITIAL);
   const [errors, setErrors] = useState<FieldErrors>({});
@@ -151,7 +154,7 @@ export function FormCard({
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
-  // Synchronous re-entrancy guard — blocks duplicate fires from rapid clicks
+  // Synchronous re-entrancy guard: blocks duplicate fires from rapid clicks
   // before React re-renders with the disabled state.
   const inFlightRef = useRef(false);
   const fieldRefs = useRef<Partial<Record<FieldKey, HTMLElement | null>>>({});
@@ -196,18 +199,18 @@ export function FormCard({
   // capture-phase listener never fires on empty/invalid clicks.
   const handleValidateAndSubmit = async (): Promise<void> => {
     if (inFlightRef.current || submitting || submitted) return;
-    const allErrors = validateAll(data, fields);
+    const allErrors = validateAll(data, FIELDS);
     if (Object.keys(allErrors).length > 0) {
       setErrors(allErrors);
-      setTouched(Object.fromEntries(fields.map((k) => [k, true])));
-      const firstBad = fields.find((k) => allErrors[k]);
+      setTouched(Object.fromEntries(FIELDS.map((k) => [k, true])));
+      const firstBad = FIELDS.find((k) => allErrors[k]);
       if (firstBad) fieldRefs.current[firstBad]?.focus();
       return;
     }
     inFlightRef.current = true;
     setSubmitting(true);
     setSubmitError(null);
-    const qualified = variant === "full" ? isQualified(data) : false;
+    const qualified = isQualified(data);
     try {
       const res = await submit({
         firstName: data.firstName.trim(),
@@ -256,7 +259,7 @@ export function FormCard({
             />
           </div>
           <h3 className="font-display text-2xl text-[var(--color-text)]">
-            Thank you — your request is in.
+            Thank you. Your request is in.
           </h3>
           <p className="text-[var(--color-muted)] leading-relaxed">
             A member of the Spark Sleep Solutions team will reach out to schedule your
@@ -460,27 +463,27 @@ export function FormCard({
         {renderError("phone")}
       </div>
 
-      {variant === "full" && (
-        <>
-          {selectField(
-            "isAdult",
-            "Are you 18 years of age or older?",
-            IS_ADULT_OPTIONS,
-            "Select one"
-          )}
-          {selectField(
-            "insuranceType",
-            "What is your insurance type?",
-            INSURANCE_TYPE_OPTIONS,
-            "Select your insurance"
-          )}
-          {selectField(
-            "reasonForVisit",
-            "Reason for visit",
-            REASON_OPTIONS,
-            "Select a reason"
-          )}
-        </>
+      {/* Qualifying questions: identical for both variants so hero and bottom
+          leads are scored by the same rule. Two short selects pair up at sm+. */}
+      <div className="grid grid-cols-1 gap-x-3 gap-y-4 sm:grid-cols-2">
+        {selectField(
+          "isAdult",
+          "Are you 18 years of age or older?",
+          IS_ADULT_OPTIONS,
+          "Select one"
+        )}
+        {selectField(
+          "insuranceType",
+          "What is your insurance type?",
+          INSURANCE_TYPE_OPTIONS,
+          "Select your insurance"
+        )}
+      </div>
+      {selectField(
+        "reasonForVisit",
+        "Reason for visit",
+        REASON_OPTIONS,
+        "Select a reason"
       )}
 
       {submitError && (

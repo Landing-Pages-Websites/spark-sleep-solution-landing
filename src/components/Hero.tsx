@@ -44,7 +44,7 @@ export function Hero(): React.ReactElement {
             <span className="hidden md:inline">{HERO.subhead}</span>
           </p>
 
-          {/* Compact tel link — kept small on mobile so the form card clears the fold */}
+          {/* Compact tel link, kept small on mobile so the form card clears the fold */}
           <a
             href={PHONE_HREF}
             className="mt-2.5 inline-flex items-center gap-2 rounded-md px-1 text-[17px] font-semibold text-white transition-colors hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] md:mt-6 md:rounded-xl md:border-[1.5px] md:border-white/35 md:px-5 md:py-3 md:hover:border-white md:hover:bg-white/10 md:hover:text-white"
@@ -79,7 +79,7 @@ export function Hero(): React.ReactElement {
           </ul>
         </div>
 
-        {/* Form — no reveal animation; visible immediately */}
+        {/* Form: no reveal animation; visible immediately */}
         <div className="lg:col-span-5">
           <FormCard
             variant="hero"

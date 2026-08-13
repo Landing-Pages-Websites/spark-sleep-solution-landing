@@ -45,7 +45,7 @@ export function Locations(): React.ReactElement {
                     </p>
                   ) : (
                     <p className="mt-3 text-[15px] leading-relaxed text-[var(--color-muted)]">
-                      Bay Area location — address confirmed when you book.
+                      Bay Area location. Address confirmed when you book.
                     </p>
                   )}
                   <p className="mt-3 flex items-start gap-2 border-t border-[var(--color-border)] pt-3 text-[14px] leading-snug text-[var(--color-muted)]">

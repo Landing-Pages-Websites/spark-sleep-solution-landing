@@ -27,7 +27,7 @@ export function Reviews(): React.ReactElement {
     <Section id="reviews" band="light">
       <SectionHeading
         eyebrow="Patient reviews"
-        title="In their own words — including a physician who chose us"
+        title="In their own words, including a physician who chose us"
         align="center"
       />
 
