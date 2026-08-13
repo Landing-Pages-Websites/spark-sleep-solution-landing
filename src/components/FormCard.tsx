@@ -302,11 +302,14 @@ export function FormCard({
     options: string[],
     placeholder: string
   ): React.ReactElement => (
-    <div>
+    // flex column: the label area grows and the control is pinned to the bottom
+    // (mt-auto) so paired selects share a baseline even when one label wraps to
+    // two lines in the hero card's narrow two-up columns.
+    <div className="flex h-full flex-col">
       <label htmlFor={`${idPrefix}-${k}`} className={labelCls}>
         {label}
       </label>
-      <div className="relative">
+      <div className="relative mt-auto">
         <select
           ref={(el) => {
             fieldRefs.current[k] = el;
@@ -476,7 +479,7 @@ export function FormCard({
           "insuranceType",
           "What is your insurance type?",
           INSURANCE_TYPE_OPTIONS,
-          "Select your insurance"
+          "Select insurance"
         )}
       </div>
       {selectField(
