@@ -76,6 +76,14 @@ const FIELDS: FieldKey[] = [
   "reasonForVisit",
 ];
 
+// Mobile-only two-step split. Step 1 collects contact details; step 2 keeps the
+// three qualification fields. Desktop always shows all seven at once.
+const CONTACT_FIELDS: FieldKey[] = ["firstName", "lastName", "email", "phone"];
+
+// Exact scope clarification shown immediately above the fields in both placements.
+const SCOPE_NOTE =
+  "This appointment request is for sleep apnea or snoring treatment with a custom oral appliance.";
+
 function validateField(key: FieldKey, value: string): string | undefined {
   switch (key) {
     case "firstName":
@@ -148,6 +156,9 @@ export function FormCard({
   const { submit } = useMegaLeadForm();
 
   const [data, setData] = useState<FormState>(INITIAL);
+  // Mobile step: 1 = contact details, 2 = qualification. Ignored at md+ where all
+  // fields render together. Deterministic initial value avoids hydration drift.
+  const [step, setStep] = useState<1 | 2>(1);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState<Partial<Record<FieldKey, boolean>>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -193,6 +204,24 @@ export function FormCard({
     if (qualified) {
       window.dataLayer.push({ event: "qualified_lead", form_route: route });
     }
+  };
+
+  // Mobile-only step navigation. Strictly client-side: validates ONLY the four
+  // contact fields and advances the panel. NEVER submits, creates a lead, fires
+  // tracking, pushes to dataLayer, or touches MegaTag.
+  const handleContinue = (): void => {
+    const contactErrors = validateAll(data, CONTACT_FIELDS);
+    if (Object.keys(contactErrors).length > 0) {
+      setErrors((prev) => ({ ...prev, ...contactErrors }));
+      setTouched((t) => ({
+        ...t,
+        ...Object.fromEntries(CONTACT_FIELDS.map((k) => [k, true])),
+      }));
+      const firstBad = CONTACT_FIELDS.find((k) => contactErrors[k]);
+      if (firstBad) fieldRefs.current[firstBad]?.focus();
+      return;
+    }
+    setStep(2);
   };
 
   // Validate FIRST, then submit. Button is type="button" so the optimizer's
@@ -289,6 +318,12 @@ export function FormCard({
 
   const labelCls = "block text-[15px] font-semibold text-[var(--color-text)] mb-1.5";
 
+  // Primary CTA styling shared by the desktop/step-2 submit and the mobile
+  // Continue control. `flex`/`hidden` are applied per-button so display can be
+  // toggled responsively without duplicating this string.
+  const primaryBtnCls =
+    "w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-[17px] font-semibold text-white bg-[var(--color-primary)] shadow-cta transition-all hover:bg-[var(--color-primary-hover)] hover:shadow-cta-hover hover:-translate-y-px active:translate-y-0 active:bg-[var(--color-primary-active)] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 disabled:bg-[var(--color-primary-disabled)] disabled:cursor-not-allowed disabled:translate-y-0";
+
   const renderError = (k: FieldKey): React.ReactNode =>
     showErr(k) ? (
       <p id={errId(k)} role="alert" aria-live="polite" className="lp-field-error">
@@ -363,8 +398,41 @@ export function FormCard({
         </div>
       )}
 
+      {/* Mobile-only step progress. Hidden at md+, where all seven fields show
+          together. role="status" announces the step to assistive tech. */}
+      <div
+        className="md:hidden"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--color-link)]">
+            Step {step} of 2
+          </span>
+          <span className="text-[13px] font-medium text-[var(--color-muted)]">
+            {step === 1 ? "Contact details" : "Qualification"}
+          </span>
+        </div>
+        <div className="mt-2 flex gap-1.5" aria-hidden="true">
+          <span className="h-1.5 flex-1 rounded-full bg-[var(--color-primary)]" />
+          <span
+            className={`h-1.5 flex-1 rounded-full ${
+              step === 2 ? "bg-[var(--color-primary)]" : "bg-[var(--color-border)]"
+            }`}
+          />
+        </div>
+      </div>
+
+      {/* Scope clarification — immediately above the fields in both placements. */}
+      <p className="text-[14px] leading-relaxed text-[var(--color-muted)]">
+        {SCOPE_NOTE}
+      </p>
+
       {/* First / Last */}
-      <div className="grid grid-cols-2 gap-3">
+      <div
+        className={`${step === 2 ? "hidden md:grid" : "grid"} grid-cols-2 gap-3`}
+      >
         <div>
           <label htmlFor={`${idPrefix}-firstName`} className={labelCls}>
             First Name
@@ -414,7 +482,7 @@ export function FormCard({
       </div>
 
       {/* Email */}
-      <div>
+      <div className={step === 2 ? "hidden md:block" : ""}>
         <label htmlFor={`${idPrefix}-email`} className={labelCls}>
           Email Address
         </label>
@@ -440,7 +508,7 @@ export function FormCard({
       </div>
 
       {/* Phone */}
-      <div>
+      <div className={step === 2 ? "hidden md:block" : ""}>
         <label htmlFor={`${idPrefix}-phone`} className={labelCls}>
           Phone Number
         </label>
@@ -468,7 +536,11 @@ export function FormCard({
 
       {/* Qualifying questions: identical for both variants so hero and bottom
           leads are scored by the same rule. Two short selects pair up at sm+. */}
-      <div className="grid grid-cols-1 gap-x-3 gap-y-4 sm:grid-cols-2">
+      <div
+        className={`${
+          step === 1 ? "hidden md:grid" : "grid"
+        } grid-cols-1 gap-x-3 gap-y-4 sm:grid-cols-2`}
+      >
         {selectField(
           "isAdult",
           "Are you 18 years of age or older?",
@@ -482,12 +554,14 @@ export function FormCard({
           "Select insurance"
         )}
       </div>
-      {selectField(
-        "reasonForVisit",
-        "Reason for visit",
-        REASON_OPTIONS,
-        "Select a reason"
-      )}
+      <div className={step === 1 ? "hidden md:block" : ""}>
+        {selectField(
+          "reasonForVisit",
+          "Reason for visit",
+          REASON_OPTIONS,
+          "Select a reason"
+        )}
+      </div>
 
       {submitError && (
         <p role="alert" aria-live="polite" className="lp-field-error font-semibold">
@@ -495,15 +569,41 @@ export function FormCard({
         </p>
       )}
 
+      {/* Mobile Step 1: Continue advances the panel client-side (no submit). */}
+      {step === 1 && (
+        <button
+          type="button"
+          onClick={handleContinue}
+          className={`mt-1 flex md:hidden ${primaryBtnCls}`}
+        >
+          Continue
+          <Icon name="arrow" className="h-4 w-4" strokeWidth={2.4} />
+        </button>
+      )}
+
+      {/* Final submit: desktop always shows it; mobile only on Step 2. */}
       <button
         type="button"
         onClick={handleValidateAndSubmit}
         disabled={submitting || submitted}
-        className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-[17px] font-semibold text-white bg-[var(--color-primary)] shadow-cta transition-all hover:bg-[var(--color-primary-hover)] hover:shadow-cta-hover hover:-translate-y-px active:translate-y-0 active:bg-[var(--color-primary-active)] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 disabled:bg-[var(--color-primary-disabled)] disabled:cursor-not-allowed disabled:translate-y-0"
+        className={`mt-1 ${step === 1 ? "hidden md:flex" : "flex"} ${primaryBtnCls}`}
       >
         {submitting ? "Submitting…" : CTA.primary}
         {!submitting && <Icon name="arrow" className="h-4 w-4" strokeWidth={2.4} />}
       </button>
+
+      {/* Mobile Step 2: Back returns to Step 1 with all values preserved. */}
+      {step === 2 && (
+        <button
+          type="button"
+          onClick={() => setStep(1)}
+          disabled={submitting}
+          className="flex md:hidden w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-[15px] font-semibold text-[var(--color-text)] bg-transparent border-[1.5px] border-[var(--color-border)] transition-colors hover:border-[#c3d2c8] hover:bg-[var(--color-accent)]/10 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--color-accent)] disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <Icon name="arrow" className="h-4 w-4 rotate-180" strokeWidth={2.4} />
+          Back
+        </button>
+      )}
 
       {variant === "hero" && (
         <p className="text-center text-[15px] leading-snug text-[var(--color-muted)]">
