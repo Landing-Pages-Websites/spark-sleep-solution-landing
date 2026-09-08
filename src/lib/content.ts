@@ -31,7 +31,7 @@ export const HERO = {
   // Mobile splits the eyebrow into two tight lines so it never wraps to three.
   eyebrowLead: "Board-Certified Dental Sleep Medicine",
   eyebrowGeo: "San Jose · San Ramon · Sunnyvale",
-  h1: "Sleep Apnea Treatment Without the Mask",
+  h1: "Sleep Apnea & Snoring Treatment",
   subhead:
     "A custom, FDA-approved oral appliance worn at night: no masks, no cords, no noise. Made and adjusted by doctors who treat only sleep apnea and snoring.",
   // Shorter mobile sub-headline to keep the form card above the fold at 390px.
