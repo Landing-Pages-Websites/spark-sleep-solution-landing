@@ -274,7 +274,7 @@ export function FormCard({
   const cardBase = onDark
     ? "bg-white shadow-formcard"
     : "bg-white border border-[var(--color-border)] shadow-card";
-  const pad = variant === "hero" ? "p-6 md:p-7" : "p-6 md:p-8";
+  const pad = variant === "hero" ? "p-5 md:p-7" : "p-6 md:p-8";
 
   if (submitted) {
     return (
@@ -311,18 +311,21 @@ export function FormCard({
 
   const showErr = (k: FieldKey): boolean => Boolean(touched[k] && errors[k]);
   const errId = (k: FieldKey): string => `${idPrefix}-${k}-error`;
+  // Mobile trims vertical padding to keep step 1 above the fold; md+ restores the
+  // roomier control height so desktop is visually unchanged. Min height stays >=44px.
   const fieldCls =
-    "w-full rounded-[10px] px-3.5 py-3 text-[17px] bg-white border-[1.5px] border-[var(--color-border)] text-[var(--color-text)] placeholder:text-[var(--color-muted-soft)] transition-colors hover:border-[#c3d2c8] focus:outline-none focus:border-[var(--color-primary)] focus:ring-[3px] focus:ring-[var(--color-accent)]/45";
+    "w-full rounded-[10px] px-3.5 py-2.5 md:py-3 text-[17px] bg-white border-[1.5px] border-[var(--color-border)] text-[var(--color-text)] placeholder:text-[var(--color-muted-soft)] transition-colors hover:border-[#c3d2c8] focus:outline-none focus:border-[var(--color-primary)] focus:ring-[3px] focus:ring-[var(--color-accent)]/45";
   const inputCls = (k: FieldKey): string =>
     `${fieldCls} ${showErr(k) ? "lp-input-error" : ""}`;
 
-  const labelCls = "block text-[15px] font-semibold text-[var(--color-text)] mb-1.5";
+  const labelCls =
+    "block text-[15px] font-semibold text-[var(--color-text)] mb-1 md:mb-1.5";
 
   // Primary CTA styling shared by the desktop/step-2 submit and the mobile
   // Continue control. `flex`/`hidden` are applied per-button so display can be
   // toggled responsively without duplicating this string.
   const primaryBtnCls =
-    "w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-[17px] font-semibold text-white bg-[var(--color-primary)] shadow-cta transition-all hover:bg-[var(--color-primary-hover)] hover:shadow-cta-hover hover:-translate-y-px active:translate-y-0 active:bg-[var(--color-primary-active)] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 disabled:bg-[var(--color-primary-disabled)] disabled:cursor-not-allowed disabled:translate-y-0";
+    "w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 md:py-4 text-[17px] font-semibold text-white bg-[var(--color-primary)] shadow-cta transition-all hover:bg-[var(--color-primary-hover)] hover:shadow-cta-hover hover:-translate-y-px active:translate-y-0 active:bg-[var(--color-primary-active)] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 disabled:bg-[var(--color-primary-disabled)] disabled:cursor-not-allowed disabled:translate-y-0";
 
   const renderError = (k: FieldKey): React.ReactNode =>
     showErr(k) ? (
@@ -380,18 +383,18 @@ export function FormCard({
     <form
       onSubmit={(e) => e.preventDefault()}
       noValidate
-      aria-label="Request an appointment with Spark Sleep Solutions"
-      className={`${cardBase} rounded-[20px] ${pad} space-y-4`}
+      aria-label="Request a callback from Spark Sleep Solutions"
+      className={`${cardBase} rounded-[20px] ${pad} space-y-2 md:space-y-4`}
     >
       {(eyebrow || heading) && (
-        <div className="mb-1 space-y-1.5">
+        <div className="mb-0.5 space-y-1 md:mb-1 md:space-y-1.5">
           {eyebrow && (
-            <p className="text-[15px] font-semibold uppercase tracking-[0.1em] text-[var(--color-link)]">
+            <p className="text-[13px] font-semibold uppercase tracking-[0.1em] text-[var(--color-link)] md:text-[15px]">
               {eyebrow}
             </p>
           )}
           {heading && (
-            <h3 className="font-display text-[21px] leading-tight text-[var(--color-text)]">
+            <h3 className="font-display text-[19px] leading-tight text-[var(--color-text)] md:text-[21px]">
               {heading}
             </h3>
           )}
@@ -424,8 +427,14 @@ export function FormCard({
         </div>
       </div>
 
-      {/* Scope clarification — immediately above the fields in both placements. */}
-      <p className="text-[14px] leading-relaxed text-[var(--color-muted)]">
+      {/* Scope clarification. Hidden on the compact mobile step 1 to keep the four
+          contact fields + Continue above the fold; still shown on desktop and on
+          mobile step 2 before the final submit. */}
+      <p
+        className={`${
+          step === 1 ? "hidden md:block" : ""
+        } text-[14px] leading-relaxed text-[var(--color-muted)]`}
+      >
         {SCOPE_NOTE}
       </p>
 
@@ -604,6 +613,11 @@ export function FormCard({
           Back
         </button>
       )}
+
+      {/* Callback expectation. Shown in both placements, directly beneath the CTA. */}
+      <p className="text-center text-[14px] leading-relaxed text-[var(--color-muted)]">
+        Leave your details and our team will call you about treatment options.
+      </p>
 
       {variant === "hero" && (
         <p className="text-center text-[15px] leading-snug text-[var(--color-muted)]">

@@ -11,7 +11,7 @@ export function Hero(): React.ReactElement {
   return (
     <section
       id="hero"
-      className="relative isolate overflow-hidden bg-[var(--color-dark)] pt-4 pb-12 md:pt-16 md:pb-20"
+      className="relative isolate overflow-hidden bg-[var(--color-dark)] pt-3 pb-12 md:pt-16 md:pb-20"
     >
       {/* Full-bleed morning photo under a navy→green gradient scrim */}
       <div className="absolute inset-0 -z-10">
@@ -27,7 +27,7 @@ export function Hero(): React.ReactElement {
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-dark)]/70 via-transparent to-transparent" />
       </div>
 
-      <div className="mx-auto grid max-w-[1320px] items-center gap-5 px-5 md:px-8 lg:grid-cols-12 lg:gap-12">
+      <div className="mx-auto grid max-w-[1320px] items-center gap-3 px-5 md:gap-5 md:px-8 lg:grid-cols-12 lg:gap-12">
         {/* Copy */}
         <div className="lg:col-span-7">
           <p className="eyebrow on-dark text-[13px] leading-snug md:text-[15px]">
@@ -38,8 +38,10 @@ export function Hero(): React.ReactElement {
               <span className="mt-0.5 block text-white/70">{HERO.eyebrowGeo}</span>
             </span>
           </p>
-          <h1 className="h1 mt-2 max-w-2xl text-white md:mt-3">{HERO.h1}</h1>
-          <p className="mt-2.5 max-w-xl text-[17px] leading-relaxed text-[var(--color-on-dark)]/85 md:mt-4 md:text-[18px]">
+          <h1 className="h1 mt-1.5 max-w-2xl text-white max-md:text-[28px]! md:mt-3">
+            {HERO.h1}
+          </h1>
+          <p className="mt-2 max-w-xl text-[15px] leading-snug text-[var(--color-on-dark)]/85 md:mt-4 md:text-[18px] md:leading-relaxed">
             <span className="md:hidden">{HERO.subheadShort}</span>
             <span className="hidden md:inline">{HERO.subhead}</span>
           </p>
@@ -47,7 +49,7 @@ export function Hero(): React.ReactElement {
           {/* Compact tel link, kept small on mobile so the form card clears the fold */}
           <a
             href={PHONE_HREF}
-            className="mt-2.5 inline-flex items-center gap-2 rounded-md px-1 text-[17px] font-semibold text-white transition-colors hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] md:mt-6 md:rounded-xl md:border-[1.5px] md:border-white/35 md:px-5 md:py-3 md:hover:border-white md:hover:bg-white/10 md:hover:text-white"
+            className="mt-2 inline-flex items-center gap-2 rounded-md px-1 text-[17px] font-semibold text-white transition-colors hover:text-[var(--color-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] md:mt-6 md:rounded-xl md:border-[1.5px] md:border-white/35 md:px-5 md:py-3 md:hover:border-white md:hover:bg-white/10 md:hover:text-white"
             aria-label={`Call Spark Sleep Solutions at ${PHONE}`}
           >
             <Icon
@@ -85,7 +87,7 @@ export function Hero(): React.ReactElement {
             variant="hero"
             idPrefix="hero"
             onDark
-            eyebrow="Request your appointment"
+            eyebrow="Request a Callback"
             heading="Start with a few details"
           />
         </div>

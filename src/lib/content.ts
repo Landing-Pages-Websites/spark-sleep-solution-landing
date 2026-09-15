@@ -11,7 +11,7 @@ export const PHONE_HREF = "tel:4084900182";
 export const REQUEST_ANCHOR = "#request-appointment";
 
 export const CTA = {
-  primary: "Request Appointment",
+  primary: "Request a Callback",
   secondary: "Get Started Today",
   requestAnchor: REQUEST_ANCHOR,
 };
@@ -297,8 +297,8 @@ export const FAQ = [
 
 // ─── Request appointment (#request-appointment) ───
 export const REQUEST = {
-  eyebrow: "Request your appointment",
-  heading: "Request Your Appointment",
+  eyebrow: "Request a Callback",
+  heading: "Request a Callback",
   subheading:
     "A board-certified doctor will review your situation, and the team verifies your insurance benefits before your visit. No obligation.",
   altPathLead: "Prefer to call?",
