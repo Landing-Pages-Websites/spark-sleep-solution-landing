@@ -33,10 +33,10 @@ export const HERO = {
   eyebrowGeo: "San Jose · San Ramon · Sunnyvale",
   h1: "Sleep Apnea & Snoring Treatment",
   subhead:
-    "A custom, FDA-approved oral appliance worn at night: no masks, no cords, no noise. Made and adjusted by doctors who treat only sleep apnea and snoring.",
+    "A custom, FDA-approved oral appliance worn at night. A comfortable CPAP alternative for sleep apnea and snoring.",
   // Shorter mobile sub-headline to keep the form card above the fold at 390px.
   subheadShort:
-    "A custom, FDA-approved oral appliance worn at night: no masks, no cords, no noise.",
+    "A custom, FDA-approved oral appliance worn at night. A comfortable CPAP alternative for sleep apnea and snoring.",
   phoneLead: "Prefer to talk?",
   formReassurance:
     "No obligation. We accept most PPO, HMO, and Medicare plans and verify your benefits for you.",
