@@ -87,6 +87,7 @@ export function Hero(): React.ReactElement {
             variant="hero"
             idPrefix="hero"
             onDark
+            semanticSubmit
             eyebrow="Request a Callback"
             heading="Start with a few details"
           />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, type KeyboardEvent, type MouseEvent } from "react";
 import { useMegaLeadForm } from "@/hooks/useMegaLeadForm";
 import {
   CTA,
@@ -32,6 +32,23 @@ declare global {
 const EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
 // NANP: area code & exchange each start 2-9 and may not be an N11.
 const NANP_RE = /^[2-9](?!11)\d{2}[2-9](?!11)\d{2}\d{4}$/;
+
+// ─── Semantic submit control (hero opt-in only) ───
+// Idle DOM exposes a real enabled button[type="submit"] so the page validates as
+// having a semantic submit control. We flip the live button to a plain "button"
+// only for the instant an activation gesture propagates, so the Mega optimizer's
+// capture-phase click listener never sees a submit-button click and no native
+// submit event ever fires. Opt in via the semanticSubmit prop, hero placement only.
+const SEMANTIC_SUBMIT_TYPE = "submit";
+const NEUTRAL_BUTTON_TYPE = "button";
+// Space activates a focused button on keyup, Enter on keydown; both synthesize the
+// click we must pre-neutralize.
+const ACTIVATION_KEYS = new Set(["Enter", " "]);
+// Tailwind md breakpoint. At or above it the hero shows all seven fields at once,
+// so form-level Enter submits; below it step 1 only advances to step 2.
+const DESKTOP_MEDIA_QUERY = "(min-width: 768px)";
+// Hero submit label. Distinct from the lower form callback control.
+const HERO_SUBMIT_LABEL = "Request Appointment";
 
 type FieldKey =
   | "firstName"
@@ -144,6 +161,9 @@ interface FormCardProps {
   onDark?: boolean;
   eyebrow?: string;
   heading?: string;
+  // Opt in to a real semantic button[type="submit"] with the optimizer-safe
+  // neutralize/restore guard. Hero placement only; lower form stays type="button".
+  semanticSubmit?: boolean;
 }
 
 export function FormCard({
@@ -152,6 +172,7 @@ export function FormCard({
   onDark = false,
   eyebrow,
   heading,
+  semanticSubmit = false,
 }: FormCardProps): React.ReactElement {
   const { submit } = useMegaLeadForm();
 
@@ -169,6 +190,9 @@ export function FormCard({
   // before React re-renders with the disabled state.
   const inFlightRef = useRef(false);
   const fieldRefs = useRef<Partial<Record<FieldKey, HTMLElement | null>>>({});
+  // Live ref to the hero submit button so the guard can flip its DOM type without
+  // a rerender. Only wired when semanticSubmit is set.
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
 
   const update = (k: FieldKey, v: string): void => {
     setData((d) => ({ ...d, [k]: v }));
@@ -269,6 +293,70 @@ export function FormCard({
       inFlightRef.current = false;
       setSubmitting(false);
     }
+  };
+
+  // Desktop shows all seven fields together, so form-level Enter submits. Below md
+  // the hero uses the two-step split, so Enter on step 1 advances instead.
+  const isDesktopViewport = (): boolean => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia(DESKTOP_MEDIA_QUERY).matches;
+  };
+
+  // Flip the live submit button to a plain button BEFORE the activation click the
+  // optimizer sees. Imperative DOM edit only: React's vdom still holds "submit", so
+  // it never fights the flip and no rerender is triggered.
+  const neutralizeSubmitType = (): void => {
+    const button = submitButtonRef.current;
+    if (!button) return;
+    if (submitting || submitted) return;
+    button.type = NEUTRAL_BUTTON_TYPE;
+  };
+
+  // Re-arm the semantic submit control after the activation event has propagated,
+  // deferred so no native submit fires while the type is briefly "submit" again.
+  const restoreSubmitType = (): void => {
+    window.setTimeout(() => {
+      const button = submitButtonRef.current;
+      if (button) button.type = SEMANTIC_SUBMIT_TYPE;
+    }, 0);
+  };
+
+  const handleSubmitPointerDown = (): void => {
+    neutralizeSubmitType();
+  };
+
+  // A cancelled pointer gesture never produces a click, so re-arm defensively.
+  const handleSubmitPointerCancel = (): void => {
+    restoreSubmitType();
+  };
+
+  // Space/Enter on the focused button synthesizes a click; neutralize on keydown,
+  // before that click reaches the optimizer. The click handler re-arms the type.
+  const handleSubmitKeyDown = (e: KeyboardEvent<HTMLButtonElement>): void => {
+    if (!ACTIVATION_KEYS.has(e.key)) return;
+    neutralizeSubmitType();
+  };
+
+  // Validate-first gate. preventDefault plus the pointerdown/keydown neutralize keep
+  // the optimizer from ever seeing a semantic-submit click or a native submit event.
+  const handleSubmitClick = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    restoreSubmitType();
+    void handleValidateAndSubmit();
+  };
+
+  // Form-level Enter for the hero. Never creates a native submit: preventDefault
+  // cancels implicit submission, then we route to the step-appropriate guarded
+  // action. Enter on the button itself is handled by the button's own keydown.
+  const handleFormKeyDown = (e: KeyboardEvent<HTMLFormElement>): void => {
+    if (e.key !== "Enter") return;
+    if ((e.target as HTMLElement).tagName === "BUTTON") return;
+    e.preventDefault();
+    if (step === 1 && !isDesktopViewport()) {
+      handleContinue();
+      return;
+    }
+    void handleValidateAndSubmit();
   };
 
   const cardBase = onDark
@@ -382,6 +470,7 @@ export function FormCard({
   return (
     <form
       onSubmit={(e) => e.preventDefault()}
+      onKeyDown={semanticSubmit ? handleFormKeyDown : undefined}
       noValidate
       aria-label="Request a callback from Spark Sleep Solutions"
       className={`${cardBase} rounded-[20px] ${pad} space-y-2 md:space-y-4`}
@@ -590,16 +679,34 @@ export function FormCard({
         </button>
       )}
 
-      {/* Final submit: desktop always shows it; mobile only on Step 2. */}
-      <button
-        type="button"
-        onClick={handleValidateAndSubmit}
-        disabled={submitting || submitted}
-        className={`mt-1 ${step === 1 ? "hidden md:flex" : "flex"} ${primaryBtnCls}`}
-      >
-        {submitting ? "Submitting…" : CTA.primary}
-        {!submitting && <Icon name="arrow" className="h-4 w-4" strokeWidth={2.4} />}
-      </button>
+      {/* Final submit: desktop always shows it; mobile only on Step 2. The hero
+          opts into a real semantic submit with the optimizer-safe guard; the lower
+          form keeps the byte-identical type="button" callback control. */}
+      {semanticSubmit ? (
+        <button
+          ref={submitButtonRef}
+          type="submit"
+          onPointerDown={handleSubmitPointerDown}
+          onPointerCancel={handleSubmitPointerCancel}
+          onKeyDown={handleSubmitKeyDown}
+          onClick={handleSubmitClick}
+          disabled={submitting || submitted}
+          className={`mt-1 ${step === 1 ? "hidden md:flex" : "flex"} ${primaryBtnCls}`}
+        >
+          {submitting ? "Submitting…" : HERO_SUBMIT_LABEL}
+          {!submitting && <Icon name="arrow" className="h-4 w-4" strokeWidth={2.4} />}
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={handleValidateAndSubmit}
+          disabled={submitting || submitted}
+          className={`mt-1 ${step === 1 ? "hidden md:flex" : "flex"} ${primaryBtnCls}`}
+        >
+          {submitting ? "Submitting…" : CTA.primary}
+          {!submitting && <Icon name="arrow" className="h-4 w-4" strokeWidth={2.4} />}
+        </button>
+      )}
 
       {/* Mobile Step 2: Back returns to Step 1 with all values preserved. */}
       {step === 2 && (
