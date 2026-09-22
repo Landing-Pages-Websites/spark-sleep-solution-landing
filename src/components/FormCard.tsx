@@ -33,6 +33,28 @@ const EMAIL_RE = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
 // NANP: area code & exchange each start 2-9 and may not be an N11.
 const NANP_RE = /^[2-9](?!11)\d{2}[2-9](?!11)\d{2}\d{4}$/;
 
+// Canonical NANP length and the "1 + 10" country-code length. Stripping a
+// leading US country code must NOT drop the final digit (the QA defect).
+const NANP_LENGTH = 10;
+const COUNTRY_CODE_LENGTH = 11;
+const US_COUNTRY_CODE = "1";
+
+// The mandatory customer-safe QA identity phone. Deliberately synthetic; allowed
+// as a narrow explicit exception so QA can exercise the real submit path. This
+// does NOT broaden NANP validation for any other number.
+const QA_PHONE_SENTINEL = "5555550100";
+
+// Strip non-digits, then drop a leading US country code only when the value is
+// exactly 11 digits starting with "1". Never truncates before this, so the final
+// digit of an 11-digit "1 + NANP" number survives.
+function normalizePhoneDigits(value: string): string {
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === COUNTRY_CODE_LENGTH && digits.startsWith(US_COUNTRY_CODE)) {
+    return digits.slice(1);
+  }
+  return digits;
+}
+
 // ─── Semantic submit control (hero opt-in only) ───
 // Idle DOM exposes a real enabled button[type="submit"] so the page validates as
 // having a semantic submit control. We flip the live button to a plain "button"
@@ -114,9 +136,12 @@ function validateField(key: FieldKey, value: string): string | undefined {
       return undefined;
     }
     case "phone": {
-      const digits = value.replace(/\D/g, "");
+      const digits = normalizePhoneDigits(value);
       if (!digits) return "Phone number is required.";
-      if (digits.length !== 10) return "Please enter a valid 10-digit phone number.";
+      // Narrow exception: the mandatory QA sentinel passes as-is; production
+      // fail-closed NANP validation is unchanged for every other number.
+      if (digits === QA_PHONE_SENTINEL) return undefined;
+      if (digits.length !== NANP_LENGTH) return "Please enter a valid 10-digit phone number.";
       if (!NANP_RE.test(digits)) return "Please enter a valid US phone number.";
       return undefined;
     }
@@ -139,7 +164,7 @@ function validateAll(data: FormState, fields: FieldKey[]): FieldErrors {
 }
 
 function formatPhone(value: string): string {
-  const digits = value.replace(/\D/g, "").slice(0, 10);
+  const digits = normalizePhoneDigits(value).slice(0, NANP_LENGTH);
   if (!digits) return "";
   if (digits.length <= 3) return `(${digits}`;
   if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
@@ -269,7 +294,7 @@ export function FormCard({
         firstName: data.firstName.trim(),
         lastName: data.lastName.trim(),
         email: data.email.trim(),
-        phone: data.phone.replace(/\D/g, ""),
+        phone: normalizePhoneDigits(data.phone),
         isAdult: data.isAdult,
         insuranceType: data.insuranceType,
         reasonForVisit: data.reasonForVisit,

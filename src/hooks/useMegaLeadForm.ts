@@ -35,6 +35,27 @@ interface SubmissionResponse {
   id?: string;
 }
 
+// Canonical NANP length and the "1 + 10" country-code length. Mirrors
+// FormCard.tsx so hook-side normalization never drops the final digit.
+const NANP_LENGTH = 10;
+const COUNTRY_CODE_LENGTH = 11;
+const US_COUNTRY_CODE = "1";
+
+// The mandatory customer-safe QA identity phone. Allowed as a narrow explicit
+// exception; production fail-closed NANP validation is unchanged otherwise.
+const QA_PHONE_SENTINEL = "5555550100";
+
+// Strip non-digits, then drop a leading US country code only when the value is
+// exactly 11 digits starting with "1". Truncation happens nowhere here, so the
+// 11-digit "1 + NANP" case keeps its final digit.
+const normalizePhoneDigits = (value: string): string => {
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === COUNTRY_CODE_LENGTH && digits.startsWith(US_COUNTRY_CODE)) {
+    return digits.slice(1);
+  }
+  return digits;
+};
+
 const generateId = (prefix: string): string => {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
     return `${prefix}_${crypto.randomUUID()}`;
@@ -150,12 +171,16 @@ export const useMegaLeadForm = (): UseMegaLeadFormReturn => {
       // FormCard.tsx: area code & exchange each start 2-9 and may not be N11.
       const NANP_RE = /^[2-9](?!11)\d{2}[2-9](?!11)\d{2}\d{4}$/;
       if (formData.phone) {
-        const digits = String(formData.phone).replace(/\D/g, "");
-        if (digits.length !== 10) {
-          throw new Error("Phone must be exactly 10 digits");
-        }
-        if (!NANP_RE.test(digits)) {
-          throw new Error("Phone must be a valid 10-digit US number");
+        const digits = normalizePhoneDigits(String(formData.phone));
+        // Narrow exception: the mandatory QA sentinel bypasses NANP checks and
+        // persists as its canonical 10 digits. All other numbers stay fail-closed.
+        if (digits !== QA_PHONE_SENTINEL) {
+          if (digits.length !== NANP_LENGTH) {
+            throw new Error("Phone must be exactly 10 digits");
+          }
+          if (!NANP_RE.test(digits)) {
+            throw new Error("Phone must be a valid 10-digit US number");
+          }
         }
         formData.phone = digits;
       }
